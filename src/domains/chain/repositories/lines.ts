@@ -2,7 +2,7 @@ import { ILine } from "../../../core/types/types";
 import { delay } from "../../../core/util";
 
 
-export async function getLines(): Promise<ILine[]> {
+export async function getLines(userId: string): Promise<ILine[]> {
 
     await delay(1000);
 

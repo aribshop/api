@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import addGroup from './routes/addGroup';
 import addTag from './routes/addTag';
 import addUser from './routes/addUser';
 import createTag from './routes/createTag';
@@ -13,6 +14,7 @@ interface Props {
 
 export default async function (props: Props) {
 
+    // lines
     router.get("/lines", await getLines());
 
     // add user to group
@@ -22,8 +24,11 @@ export default async function (props: Props) {
     router.post("/tag/create", await createTag());
     router.post("/tag/add", await addTag());
 
-    // create new group
+    // create new group and add it to line
     router.post("/group/create", await createTag());
+    router.post("/group/add", await addGroup());
+
+    
 
     return router;
 

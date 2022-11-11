@@ -1,4 +1,5 @@
 import { delay } from "../../../core/util";
+import { ILineModel } from "../types/chain";
 import { IGroupEntity, IGroupModel, INewGroup } from "../types/group";
 import { ITagModel, INewTag } from "../types/tag";
 
@@ -39,6 +40,24 @@ export async function createTag(tag: INewTag): Promise<ITagModel> {
     return {
         id: "123",
         name: tag.name,
+    }
+
+}
+
+
+export async function addGroupToLine(lineId: string, group: IGroupEntity): Promise<ILineModel> {
+
+    await delay(1000);
+
+    return {
+        id: lineId,
+        name: "line 1",
+        isPublic: true,
+        expiresTime: 1500,
+        maxOrders: 10,
+        groups: [group.id],
+        confirmations: [],
+        site: "123",
     }
 
 }
