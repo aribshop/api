@@ -1,4 +1,4 @@
-import { IConfirmation, ISite } from "../../../core/types/types";
+import { IOrder, ISite, IUser } from "../../../core/types/types";
 import { IGroup } from "./group";
 
 
@@ -46,4 +46,38 @@ export interface INewLine {
     expiresTime: number,
     site: string
     // confirmations: string[], // todo unknown if this is needed
+}
+
+
+
+export interface IConfirmation {
+    id: string,
+    type: "email" | "sms" | "phone" | "QR" | "payment" | "verification" | "file",
+    group?: IGroup,
+    user?: IUser,
+    line: ILine,
+    order: IOrder,
+    src: string,
+    date: Date,
+}
+
+export interface IConfirmationModel {
+    id: string,
+    type: "email" | "sms" | "phone" | "QR" | "payment" | "verification" | "file",
+    group?: string,
+    user?: string,
+    line: string,
+    order: string,
+    src?: string,
+    date: Date,
+
+}
+
+export interface IConfirmationEntity {
+    type: "email" | "sms" | "phone" | "QR" | "payment" | "verification" | "file",
+    group?: string,
+    user?: string,
+    line: string,
+    order: string,
+    src?: string,
 }
