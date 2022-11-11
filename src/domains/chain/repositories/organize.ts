@@ -1,13 +1,21 @@
 import { delay } from "../../../core/util";
 import { IGroupEntity, IGroupModel, INewGroup } from "../types/group";
+import { ITagModel, INewTag } from "../types/tag";
 
 
 
 export async function addUserToGroup(user: string, group: IGroupEntity) {
 
     await delay(1000);
-    // todo add user to group
 }
+
+
+
+export async function addTagToGroup(tag: string, group: IGroupEntity) {
+
+    await delay(1000);
+}
+
 
 export async function createGroup(group: INewGroup): Promise<IGroupModel> {
 
@@ -20,6 +28,17 @@ export async function createGroup(group: INewGroup): Promise<IGroupModel> {
         users: [],
         tag: [],
         viewOnly: group.viewOnly,
+    }
+
+}
+
+export async function createTag(tag: INewTag): Promise<ITagModel> {
+
+    await delay(1000);
+
+    return {
+        id: "123",
+        name: tag.name,
     }
 
 }

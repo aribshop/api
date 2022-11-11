@@ -27,7 +27,6 @@ const validation = {
 
 router.use(validate(validation));
 
-// todo add express error handler
 
 export default async function () {
 

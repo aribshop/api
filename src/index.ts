@@ -8,7 +8,7 @@ app.use(Express.json());
 
 
 async function main() {
-    await init(app);
+    await init(app, ENV.AUTH.username);
 
 }
 
