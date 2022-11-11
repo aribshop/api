@@ -15,7 +15,7 @@ export interface IUser {
     email: string,
     phone: string,
     groups: IGroup[],
-    type: "user" | "admin"
+    type: "user" | "admin" | "client", // todo what is the difference between user and client?
 }
 
 
