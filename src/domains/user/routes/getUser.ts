@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { label } from "../contants/general";
+import { label } from "../constants/general";
 
 
 const router = Router();

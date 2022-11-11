@@ -5,14 +5,27 @@ export interface ISite {
     user: IUser,
     template: ITemplate,
     products: IProduct[],
+    description: string,
+
 }
 
 export interface IUser {
     id: string,
     name: string,
     email: string,
-    groups: IGroup[]
+    phone: string,
+    groups: IGroup[],
+    type: "user" | "admin"
 }
+
+
+export interface IClient {
+    id: string,
+    name: string,
+    email?: string,
+    phone: string,
+}
+
 
 export interface IGroup {
     id: string,
@@ -20,7 +33,7 @@ export interface IGroup {
     name: string,
     users: IUser[],
     tag: ITag[],
-
+    viewOnly: boolean,
 }
 
 export interface ITag {
@@ -32,6 +45,7 @@ export interface ITemplate {
     id: string,
     name: string,
     description: string,
+    type: "landing" | "store",
 }
 
 export interface IProduct {
@@ -65,7 +79,7 @@ export interface ICustomProductPriority {
     name: string,
     description: string,
     fieldId: string,
-    priority : number,
+    priority: number,
 }
 
 
@@ -100,11 +114,12 @@ export interface ILine {
 
 export interface IConfirmation {
     id: string,
-    type: "email" | "sms" | "phone" | "QR" | "payment" | "verification",
+    type: "email" | "sms" | "phone" | "QR" | "payment" | "verification" | "file",
     group?: IGroup,
     user?: IUser,
     line: ILine,
     order: IOrder,
+    src: string,
 }
 
 
