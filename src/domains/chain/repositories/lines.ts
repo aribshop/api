@@ -9,8 +9,8 @@ export async function getLines(userId: string): Promise<ILine[]> {
     return [
         {
             id: "1",
-            name: "line 1",
-            isPublic: true,
+            name: "production",
+            isPublic: false,
             expiresTime: 1500,
             maxOrders: 10,
             groups: [],
@@ -18,8 +18,8 @@ export async function getLines(userId: string): Promise<ILine[]> {
         },
         {
             id: "2",
-            name: "line 2",
-            isPublic: true,
+            name: "cooking",
+            isPublic: false,
             expiresTime: 1500,
             maxOrders: 10,
             groups: [],
@@ -27,8 +27,8 @@ export async function getLines(userId: string): Promise<ILine[]> {
         },
         {
             id: "3",
-            name: "line 3",
-            isPublic: true,
+            name: "packaging",
+            isPublic: false,
             expiresTime: 1500,
             maxOrders: 10,
             groups: [],

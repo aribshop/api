@@ -31,8 +31,8 @@ const validation = {
         }).required(),
         confirmation: Joi.object({
             type: Joi.string().required(),
-            group: Joi.string().required(),
-            user: Joi.string().required(),
+            group: Joi.string(),
+            user: Joi.string(),
             line: Joi.string().required(),
             order: Joi.string().required(),
         }).required(),
