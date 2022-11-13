@@ -4,9 +4,9 @@ export interface ISite {
     id: string,
     user: IUser,
     template: ITemplate,
-    products: IProduct[],
+    products: (IProduct|ICustomProduct)[],
     description: string,
-
+    
 }
 
 export interface IUser {
@@ -18,7 +18,7 @@ export interface IUser {
     type: "user" | "admin" | "client", // todo what is the difference between user and client?
 }
 
-
+// todo use IClient instead of IUser
 export interface IClient {
     id: string,
     name: string,
@@ -41,12 +41,49 @@ export interface ITag {
     name: string,
 }
 
+
 export interface ITemplate {
     id: string,
     name: string,
     description: string,
     type: "landing" | "store",
 }
+
+
+/*
+    // todo templates problem
+    templates are used to create sites
+    we have for now two types of templates
+    the probelm is how to store those templates in Relation DB
+    and what about multiple sections in one template?
+
+    // FIXME for now, one table = one kind of template, multiple sections? well a section table for one kind of template. ship fast, remember? 
+*/
+
+export interface ILandingTemplate extends ITemplate {
+    type: "landing",
+    sections: ISection[],
+    title: string,
+    backgroundPicture: string,
+    profilePicture: string,
+}
+
+export interface IStoreTemplate extends ITemplate {
+    type: "store",
+    title: string,
+    backgroundPicture: string,
+}
+
+
+export interface ISection {
+    id: string,
+    title:string,
+    description: string,
+    backgroundPicture: string,
+}
+
+
+
 
 export interface IProduct {
     id: string,

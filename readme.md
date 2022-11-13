@@ -29,3 +29,36 @@ this API follow custom version DDD, where the probelm is splitted into multiple 
 <!-- todo  addGroup Vs associateGroup Vs linkGroup-->
 <!-- todo add route to get all confirmation for specific order -->
 
+# Template
+
+each website has its own template
+
+a template represents:
+1. the website design
+2. the data website contains
+
+## Template gallery 
+
+currently we will work only on two types of templates
+
+### E-commerce
+
+1. simple home page that serve as product catalogue
+2. product page, show the description
+3. buy product page, side to side pages, one for showing product overview, and page for inserting the buyer information
+
+
+### Landing Page
+
+1. one landing page line notion, background picture, profile picture, title, two sections, and contact us 
+
+for now, we stick to two sections
+
+a section is mainly, title, description, photo
+
+#### Custom product
+
+landing page don't have a specific product (one size doesn't fit all)
+
+instead, we will have a custom product, its like a form with multiple fields 
+
