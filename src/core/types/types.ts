@@ -4,9 +4,9 @@ export interface ISite {
     id: string,
     user: IUser,
     template: ITemplate,
-    products: (IProduct|ICustomProduct)[],
+    products: (IProduct | ICustomProduct)[],
     description: string,
-    
+
 }
 
 export interface IUser {
@@ -77,22 +77,42 @@ export interface IStoreTemplate extends ITemplate {
 
 export interface ISection {
     id: string,
-    title:string,
+    title: string,
     description: string,
     backgroundPicture: string,
 }
 
 
+/**
+ * for now there are two types of products, custom and standard
+ */
 
 
 export interface IProduct {
     id: string,
     metadata: IProductMetadata,
+    isCustom: boolean,
+}
+
+
+// FIXME Metadata ?? what is this? LOL, probably its the shared data between all kind of products
+export interface IProductMetadata {
+    name: string,
+    description: string,
+    tag: string[],
+}
+
+export interface IStandardProduct extends IProduct {
+    isCustom: false,
+    price: number,
+    quantity: number,
+    discount: number,
+    picture: string,
 }
 
 export interface ICustomProduct extends IProduct {
     isCustom: true,
-    priorities: ICustomProductPriority[],
+    // priorities: ICustomProductPriority[],
     form: ICustomProductForm,
 }
 
@@ -111,6 +131,7 @@ export interface ICustomProductFormField {
     options: string[],
 }
 
+// todo implement Product Priority
 export interface ICustomProductPriority {
     id: string,
     name: string,
@@ -123,10 +144,6 @@ export interface ICustomProductPriority {
 
 
 
-export interface IProductMetadata {
-    name: string,
-    description: string,
-}
 
 export interface IOrder {
     id: string,
