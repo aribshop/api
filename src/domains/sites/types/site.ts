@@ -5,7 +5,7 @@ export interface ISite {
     id: string,
     user: IUser,
     template: ITemplate,
-    products: (IProduct | ICustomProduct)[],
+    products: (IProduct | ICustomProduct)[], // can't be implimented yet, one api = one respossibility
     description: string,
 }
 

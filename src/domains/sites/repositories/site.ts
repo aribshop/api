@@ -49,3 +49,4 @@ export async function getTemplate(siteId: string): Promise<ITemplateModel> {
         } as IStoreTemplate;
     }
 }
+

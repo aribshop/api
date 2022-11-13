@@ -3,6 +3,7 @@ import getSite from "./routes/getSite";
 import { jwt } from "../..";
 import getTemplate from "./routes/getTemplate";
 import getTemplates from "./routes/getTemplates";
+import getProducts from "./routes/getProducts";
 
 const router = Router();
 
@@ -14,7 +15,12 @@ export default async function (props: Props) {
     router.use("/template", await getTemplate());
     router.use("/templates", await getTemplates());
 
+    router.use("/products", await getProducts());
+
     router.use("/", await getSite());
+
+
+
     router.use(handleError);
 
     return router;
