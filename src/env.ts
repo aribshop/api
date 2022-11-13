@@ -9,7 +9,8 @@ const ENV = cleanEnv(process.env, {
         default: {
             "username": "admin",
         }
-    })
+    }),
+    JWTSECRET: str(),
 });
 
 export default ENV;

@@ -13,14 +13,13 @@ const router = Router();
 export default async function () {
 
 
-
     router.use(async (req, res) => {
 
         // todo get user Id from token
 
-        const userId = "5f9f1b9b9b9b9b9b9b9b9b9b";
-        const lineId = "5f9f1b9b9b9b9b9b9b9b9b9b";
-
+        const userId = (req as any).auth.user;
+        const {lineId} = req.params;
+        console.log(userId);
         const orders = await OrderRepository.getOrders(lineId, userId);
         res.json({ success: true, orders });
     });

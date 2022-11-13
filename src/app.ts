@@ -2,11 +2,11 @@ import { Express } from "express";
 import User from "./domains/user";
 import Chain from "./domains/chain";
 
-export async function init(express: Express, auth: string) {
+export async function init(props: { express: Express, auth: string }) {
 
-    express.use("/user", User());
-    express.use("/chain", await Chain({
-        auth
+    props.express.use("/user", User());
+    props.express.use("/chain", await Chain({
+        auth: props.auth
     }));
 
 }

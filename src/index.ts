@@ -1,15 +1,26 @@
 import Express from "express";
 import { init } from "./app";
 import ENV from "./env";
+import { expressjwt } from "express-jwt";
+
 
 const app = Express();
 app.use(Express.json());
 
 
+// TODO not sure if this pattern is correct
+export const jwt = expressjwt({
+    secret: ENV.JWTSECRET,
+    algorithms: ['HS256'],
+    maxAge: 1000000000,
+});
+
 
 async function main() {
-    await init(app, ENV.AUTH.username);
-
+    await init({
+        express: app,
+        auth: ENV.AUTH,
+    });
 }
 
 
