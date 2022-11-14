@@ -9,7 +9,7 @@ export interface IProduct {
 
 
 
-export interface IProductModel extends  IProductEntity{
+export interface IProductModel extends IProductEntity {
     id: string,
 }
 export interface IProductEntity {
@@ -36,18 +36,31 @@ export interface IStandardProductModel extends IProductModel, IStandardProductEn
     isCustom: false,
 }
 
+
+
+export interface ICustomProductEntity extends IProductEntity {
+    isCustom: true,
+    form: ICustomProductFormEntity,
+}
+
 export interface ICustomProductModel extends IProductModel {
     isCustom: true,
     form: ICustomProductFormModel,
 }
 
-export interface ICustomProductFormModel {
-    id: string,
+
+
+export interface ICustomProductFormEntity {
     version: number,
     lastUpdated: Date,
-    fields: ICustomProductFormFieldModel[],
+    fields: ICustomProductFormFieldEntity[],
 }
 
+export interface ICustomProductFormModel extends ICustomProductFormEntity {
+    id: string,
+    fields: ICustomProductFormFieldModel[],
+
+}
 
 export interface ICustomProductFormFieldEntity {
     name: string,

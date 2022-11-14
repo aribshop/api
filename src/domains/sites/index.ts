@@ -6,6 +6,7 @@ import getTemplates from "./routes/getTemplates";
 import getProducts from "./routes/getProducts";
 import getProduct from "./routes/getProduct";
 import createProduct from "./routes/createProduct";
+import createCustomProduct from "./routes/createCustomProduct";
 
 const router = Router();
 
@@ -18,6 +19,7 @@ export default async function (props: Props) {
     router.use("/templates", await getTemplates());
 
     router.post("/product/standard/create",jwt, await createProduct());
+    router.post("/product/custom/create",jwt, await createCustomProduct());
 
     router.use("/products", await getProducts());
     router.use("/product", await getProduct());
