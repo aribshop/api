@@ -1,5 +1,5 @@
 import { ICustomProduct, IProduct, ITemplate, IUser } from "../../../core/types/types";
-import { TemplateType } from "./template";
+import { ITemplateModel, TemplateType } from "./template";
 
 export interface ISite {
     id: string,
@@ -12,13 +12,13 @@ export interface ISite {
 export interface ISiteModel {
     id: string,
     user: string,
-    template: TemplateType,
+    template: ITemplateModel,
     subname: string,
     description: string,
 }
 
 export interface ISiteEntity {
-    template: ITemplate, // FIXME for now the api for creating new website will force the template, but this goes against the idea of one API one Task. you know `preview`
+    template: ITemplateEntity, // FIXME for now the api for creating new website will force the template, but this goes against the idea of one API one Task. you know `preview`
     subname: string,
     description: string,
 }

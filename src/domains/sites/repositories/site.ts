@@ -1,7 +1,7 @@
 import { delay } from "../../../core/util";
 
 import { ISiteModel } from "../types/site";
-import { ILandingTemplate, IStoreTemplate, ITemplateModel, TemplateType } from "../types/template";
+import { ILandingTemplateModel, IStoreTemplateModel, ITemplateModel, TemplateType } from "../types/template";
 
 
 export async function getSite(subname: string): Promise<ISiteModel> {
@@ -36,7 +36,7 @@ export async function getTemplate(siteId: string): Promise<ITemplateModel> {
                     backgroundPicture: "https://laknabil.me/background.png",
                 }
             ]
-        } as ILandingTemplate;
+        } as ILandingTemplateModel;
 
     } else {
         return {
@@ -46,7 +46,7 @@ export async function getTemplate(siteId: string): Promise<ITemplateModel> {
             type: TemplateType.Store,
             backgroundPicture: "https://laknabil.me/background.png",
             title: "E-commerce",
-        } as IStoreTemplate;
+        } as IStoreTemplateModel;
     }
 }
 
