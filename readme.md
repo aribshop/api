@@ -5,6 +5,8 @@ an express app that serve as API for `arib.shop` & `app.arib.shop`
 
 this API follow custom version DDD, where the probelm is splitted into multiple domains
 
+[documentation](https://documenter.getpostman.com/view/17856894/2s8YmEzSFA#ed06620a-2c8f-4a91-8b04-2d08bd791f5b)
+
 ## Domains
 
 ### Site
