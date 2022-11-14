@@ -1,5 +1,5 @@
 import { ICustomProduct, IProduct, ITemplate, IUser } from "../../../core/types/types";
-import { ITemplateModel, TemplateType } from "./template";
+import { ITemplateModel, ITemplateEntity, TemplateType } from "./template";
 
 export interface ISite {
     id: string,

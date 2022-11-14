@@ -1,6 +1,6 @@
 import { delay } from "../../../core/util";
 
-import { ISiteModel } from "../types/site";
+import { ISiteEntity, ISiteModel } from "../types/site";
 import { ILandingTemplateModel, IStoreTemplateModel, ITemplateModel, TemplateType } from "../types/template";
 
 
@@ -10,10 +10,15 @@ export async function getSite(subname: string): Promise<ISiteModel> {
     return {
         subname,
         id: "sdsd",
-        template: TemplateType.Store,
+        description: "sdsd",
         user: "sdsd",
-        description: `My ${subname} site description`,
-    }
+        template: { // the generic TemplateModel
+            id: "sdsd",
+            type: TemplateType.Landing,
+            name: "Landing",
+            description: "Landing template",
+        }
+    } as ISiteModel;
 }
 
 export async function getTemplate(siteId: string): Promise<ITemplateModel> {
@@ -50,3 +55,20 @@ export async function getTemplate(siteId: string): Promise<ITemplateModel> {
     }
 }
 
+
+
+export async function createSite(site: ISiteEntity, userId: string): Promise<ISiteModel> {
+    await delay(1000);
+    // todo validte the template data !
+    return {
+        ...site,
+        user: userId,
+        template: {
+            id: "sdsd",
+            ...site.template,
+        },
+        id: "sdsd",
+
+    };
+
+}

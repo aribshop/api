@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate, Joi } from 'express-validation'
 import { ISiteEntity } from "../types/site";
 
-import * as ProductRepository from "../repositories/product";
+import * as SiteRepository from "../repositories/site";
 
 
 const router = Router();
@@ -17,14 +17,20 @@ interface Params {
 
 const validation = {
     body: Joi.object({
+        site: Joi.object({
+            template: Joi.object({
+                name: Joi.string().required(),
+                description: Joi.string().required(),
+                type: Joi.string().required(),
 
-        
-        
-        
+                // todo add validation for the template data
+            }).required(),
+            subname: Joi.string().required(),
+            description: Joi.string().required(),
+        }).required(),
     }).required(),
-
-
 }
+
 
 router.use(validate(validation));
 
@@ -33,10 +39,12 @@ export default async function () {
 
     router.use(async (req, res) => {
         const params = req.body as Params;
-        const { product, siteId } = params;
-        const model = await ProductRepository.createProduct(product, siteId);
+        const { site } = params;
+        const userId = (req as any).auth.user;
 
-        res.json({ success: true, product: model });
+        const model = await SiteRepository.createSite(site, userId);
+
+        res.json({ success: true, site: model });
     });
 
     return router;
