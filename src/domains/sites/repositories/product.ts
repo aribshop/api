@@ -1,4 +1,4 @@
-import { ICustomProductModel, IProductModel, IStandardProductModel } from "../types/product";
+import { ICustomProductModel, IProductEntity, IProductModel, IStandardProductModel } from "../types/product";
 import { delay } from "../../../core/util";
 
 export async function getProducts(siteId: string): Promise<IProductModel[]> {
@@ -47,4 +47,19 @@ export async function getProducts(siteId: string): Promise<IProductModel[]> {
 
     return [custom, standard];
 
+}
+
+
+export async function getProduct(productId: string): Promise<IProductModel> {
+    return (await getProducts(productId))[Math.random() > .5 ? 1 : 0];
+}
+
+
+export async function createProduct(product: IProductEntity,siteId:string): Promise<IProductModel> {
+    await delay(1000);
+    // todo test if the product is valid, specially the custom product
+    return {
+        id: siteId,
+        ...product
+    }
 }

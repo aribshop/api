@@ -39,8 +39,8 @@ export default async function (props: Props) {
     router.post("/group/add", jwt, await addGroup());
 
     //orders
-    router.get("/orders/:lineId", jwt, await getOrders());
     router.post("/orders/move", jwt, await moveOrder());
+    router.use("/orders", jwt, await getOrders());
 
 
 

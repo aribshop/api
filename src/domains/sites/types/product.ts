@@ -8,8 +8,11 @@ export interface IProduct {
 
 
 
-export interface IProductModel {
+
+export interface IProductModel extends  IProductEntity{
     id: string,
+}
+export interface IProductEntity {
     metadata: IProductMetadataEntity,
     isCustom: boolean,
 }
@@ -20,7 +23,8 @@ export interface IProductMetadataEntity {
     tag: string[],
 }
 
-export interface IStandardProductEntity {
+export interface IStandardProductEntity extends IProductEntity {
+    isCustom: false,
     price: number,
     quantity: number,
     discount: number,
