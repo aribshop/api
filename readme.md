@@ -9,6 +9,12 @@ this API follow custom version DDD, where the probelm is splitted into multiple 
 
 ## Domains
 
+### User
+1. get Stuff
+2. get Client
+3. get Notification
+4. 
+
 ### Site
 1. get site data
 2. get avaliable templates

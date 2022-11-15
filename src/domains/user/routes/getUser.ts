@@ -1,21 +1,14 @@
 import { Router } from "express";
-import { label } from "../constants/general";
-
+import * as UserRepository from "../repositories/users";
 
 const router = Router();
 
-router.use((req, res, next) => {
-    console.time(label);
-    next();
-    console.timeEnd(label);
-});
+export default async function () {
+  router.get("/:userId", async (req, res) => {
+    const { userId } = req.params;
+    const user = await UserRepository.getUser(userId);
+    res.json({ success: true, user });
+  });
 
-
-
-export default function (name: string) {
-    router.get("/", (req, res) => {
-        res.send("Hello World! "+name);
-    });
-
-    return router;
-};
+  return router;
+}
