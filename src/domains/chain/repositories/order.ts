@@ -22,10 +22,11 @@ export async function moveOrder(order: IOrderEntity, confirmation: IConfirmation
 export async function getOrders(line: string, userId: string): Promise<IOrderModel[]> {
     // todo use the User ID to get groups
     // todo create another Order type that gives a glimpse of the Product and Site and User
+    // todo get confirmations for each order!
     return [{
         user: "Lakrib Nabil",
         id: "id",
-        line: "line",
+        line: "1",
         price: 1,
         product: "product",
         site: "site",
@@ -34,7 +35,7 @@ export async function getOrders(line: string, userId: string): Promise<IOrderMod
     {
         user: "Nabil Droid",
         id: "idedze",
-        line: "line",
+        line: "2",
         price: 15,
         product: "product",
         site: "site",

@@ -41,7 +41,7 @@ export async function getProducts(siteId: string): Promise<IProductModel[]> {
         price: 100,
         quantity: 10,
         discount: 0,
-        picture: "https://laknabil.me/nabil.png",
+        picture: "https://laknabil.me/background.png",
     }
 
 

@@ -34,15 +34,7 @@ export async function getLines(userId: string): Promise<ILine[]> {
             groups: [],
             confirmations: [],
         },
-        {
-            id: "4",
-            name: "line 4",
-            isPublic: true,
-            expiresTime: 1500,
-            maxOrders: 10,
-            groups: [],
-            confirmations: [],
-        },
+       
     ];
 }
 
