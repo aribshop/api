@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { jwt } from "../..";
+import { VerifyToken } from "../../firebase";
 import fetchUser from "./routes/fetchUser";
 import getClient from "./routes/getClient";
 import getStuff from "./routes/getStuff";
@@ -10,13 +10,13 @@ const router = Router();
 interface Props {}
 
 export default async function (props: Props) {
-  router.use("/stuff", jwt, await getStuff());
+  router.use("/stuff", VerifyToken, await getStuff());
 
-  router.use("/client", jwt, await getClient());
+  router.use("/client", VerifyToken, await getClient());
 
-  router.use("/user/phone", jwt, await fetchUser());
+  router.use("/user/phone", VerifyToken, await fetchUser());
 
-  router.use("/user", jwt, await getUser());
+  router.use("/user", VerifyToken, await getUser());
 
   router.use(handleError);
 

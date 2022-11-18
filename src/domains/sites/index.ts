@@ -1,6 +1,5 @@
 import { Router } from "express";
 import getSite from "./routes/getSite";
-import { jwt } from "../..";
 import getTemplate from "./routes/getTemplate";
 import getTemplates from "./routes/getTemplates";
 import getProducts from "./routes/getProducts";
@@ -8,6 +7,7 @@ import getProduct from "./routes/getProduct";
 import createProduct from "./routes/createProduct";
 import createCustomProduct from "./routes/createCustomProduct";
 import createSite from "./routes/createSite";
+import { VerifyToken } from "../../firebase";
 
 const router = Router();
 
@@ -19,13 +19,13 @@ export default async function (props: Props) {
     router.use("/template", await getTemplate());
     router.use("/templates", await getTemplates());
 
-    router.post("/product/standard/create", jwt, await createProduct());
-    router.post("/product/custom/create", jwt, await createCustomProduct());
+    router.post("/product/standard/create", VerifyToken, await createProduct());
+    router.post("/product/custom/create", VerifyToken, await createCustomProduct());
 
     router.use("/products", await getProducts());
     router.use("/product", await getProduct());
 
-    router.post("/new", jwt, await createSite());
+    router.post("/new", VerifyToken, await createSite());
     router.use("/", await getSite());
 
 

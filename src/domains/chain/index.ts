@@ -10,8 +10,8 @@ import getLines from "./routes/getLines";
 import publicLines from "./routes/publicLines";
 import getOrders from "./routes/getOders";
 import moveOrder from "./routes/moveOrder";
-import { jwt } from "../..";
 import getGroups from "./routes/getGroups";
+import { VerifyToken } from "../../firebase";
 
 const router = Router();
 
@@ -21,25 +21,25 @@ interface Props {
 
 export default async function (props: Props) {
   // lines
-  router.get("/lines", jwt, await getLines());
+  router.get("/lines", VerifyToken, await getLines());
   router.get("/lines/public", await publicLines());
 
   // add user to group
-  router.post("/user/add", jwt, await addUser());
+  router.post("/user/add", VerifyToken, await addUser());
 
   // create tag and add it to groups
-  router.post("/tag/create", jwt, await createTag());
-  router.post("/tag/add", jwt, await addTag());
-  router.get("/tags", jwt, await getTags());
+  router.post("/tag/create", VerifyToken, await createTag());
+  router.post("/tag/add", VerifyToken, await addTag());
+  router.get("/tags", VerifyToken, await getTags());
 
   // create new group and add it to line
-  router.post("/group/create", jwt, await createGroup());
-  router.post("/group/add", jwt, await addGroup());
-  router.get("/groups", jwt, await getGroups());
+  router.post("/group/create", VerifyToken, await createGroup());
+  router.post("/group/add", VerifyToken, await addGroup());
+  router.get("/groups", VerifyToken, await getGroups());
 
   //orders
-  router.post("/orders/move", jwt, await moveOrder());
-  router.use("/orders", jwt, await getOrders());
+  router.post("/orders/move", VerifyToken, await moveOrder());
+  router.use("/orders", VerifyToken, await getOrders());
 
   router.use(handleError);
 

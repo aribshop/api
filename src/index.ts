@@ -1,25 +1,24 @@
 import Express from "express";
 import { init } from "./app";
 import ENV from "./env";
-import { expressjwt } from "express-jwt";
+import CookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = Express();
+app.use(
+  cors({
+    credentials: true,
+    origin: ENV.FRONTEND_URL,
+  })
+);
+
 app.use(Express.json());
-
-app.use(cors());
-
-// TODO not sure if this pattern is correct
-export const jwt = expressjwt({
-  secret: ENV.JWTSECRET,
-  algorithms: ["HS256"],
-  maxAge: 1000000000,
-});
+app.use(CookieParser());
 
 async function main() {
   await init({
     express: app,
-    auth: ENV.AUTH,
+    auth: "dsdsd",
   });
 }
 
