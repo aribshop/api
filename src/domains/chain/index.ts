@@ -13,6 +13,7 @@ import moveOrder from "./routes/moveOrder";
 import getGroups from "./routes/getGroups";
 import { VerifyToken } from "../../firebase";
 import getConfirmations from "./routes/getConfirmations";
+import getChain from "./routes/getChain";
 
 const router = Router();
 
@@ -21,6 +22,9 @@ interface Props {
 }
 
 export default async function (props: Props) {
+  // chain
+  router.get("/", VerifyToken, await getChain());
+
   // lines
   router.get("/lines", VerifyToken, await getLines());
   router.get("/lines/public", await publicLines());

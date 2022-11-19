@@ -1,5 +1,16 @@
 import { delay } from "../../../core/util";
+import { IChainAggregation } from "../types/aggregations/chain";
 import { IConfirmationModel, ILine, ILineModel } from "../types/chain";
+
+export async function getChain(userId: string): Promise<IChainAggregation> {
+  return {
+    id: "123",
+    name: "chain 1",
+    site: "123",
+    members:Math.floor(Math.random() * 100),
+    lines: await getLines(userId),
+  };
+}
 
 export async function getLines(userId: string): Promise<ILineModel[]> {
   await delay(1000);
