@@ -12,6 +12,7 @@ import getOrders from "./routes/getOders";
 import moveOrder from "./routes/moveOrder";
 import getGroups from "./routes/getGroups";
 import { VerifyToken } from "../../firebase";
+import getConfirmations from "./routes/getConfirmations";
 
 const router = Router();
 
@@ -38,6 +39,7 @@ export default async function (props: Props) {
   router.get("/groups", VerifyToken, await getGroups());
 
   //orders
+  router.use("/order/confirmations", VerifyToken, await getConfirmations());
   router.post("/orders/move", VerifyToken, await moveOrder());
   router.use("/orders", VerifyToken, await getOrders());
 

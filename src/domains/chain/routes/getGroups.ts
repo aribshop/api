@@ -10,7 +10,7 @@ const router = Router();
 export default async function () {
   router.use(async (req, res) => {
 
-    const userId = (req as any).auth.user;
+    const userId = (req as any).auth.uid;
     const groups = await OrganizeRepository.getGroups(userId);
     res.json({ success: true, groups });
   });

@@ -30,6 +30,7 @@ export async function createTag(tag: INewTag): Promise<ITagModel> {
   return {
     id: "123",
     name: tag.name,
+    description: "",
   };
 }
 
@@ -57,15 +58,18 @@ export async function getTags(websiteId: string): Promise<ITagModel[]> {
   return [
     {
       id: "1",
-      name: "tag 1",
+      name: "Store 1",
+      description:"Ain Benain",
     },
     {
       id: "2",
-      name: "tag 2",
+      name: "Store 2",
+      description:"Charaga",
     },
     {
       id: "3",
-      name: "tag 3",
+      name: "Store 3",
+      description:"Ziralda",
     },
   ];
 }
@@ -77,7 +81,7 @@ export async function getGroups(userId: string): Promise<IGroupModel[]> {
   return [
     {
       id: "1",
-      name: "group 1",
+      name: "Developeurs",
       users: [userId],
       tag: [],
       viewOnly: false,
@@ -85,15 +89,15 @@ export async function getGroups(userId: string): Promise<IGroupModel[]> {
     },
     {
       id: "2",
-      name: "group 2",
-      users: [userId],
+      name: "Marketing",
+      users: [userId,"123"],
       tag: [],
-      viewOnly: false,
+      viewOnly: true,
       site: "123",
     },
     {
       id: "3",
-      name: "group 3",
+      name: "commercial",
       users: [userId],
       tag: [],
       viewOnly: false,

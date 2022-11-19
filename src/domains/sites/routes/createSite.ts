@@ -40,7 +40,7 @@ export default async function () {
     router.use(async (req, res) => {
         const params = req.body as Params;
         const { site } = params;
-        const userId = (req as any).auth.user;
+        const userId = (req as any).auth.uid;
 
         const model = await SiteRepository.createSite(site, userId);
 

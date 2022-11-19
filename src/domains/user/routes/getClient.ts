@@ -10,5 +10,7 @@ export default async function () {
     res.json({ success: true, client });
   });
 
+  // todo get number of products has been ordered by this client
+
   return router;
 }

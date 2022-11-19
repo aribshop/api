@@ -6,6 +6,9 @@ const ENV = cleanEnv(process.env, {
   FIREBASE: json({
     default: null,
   }),
+  TEMP_USER: json({
+    default: null,
+  }),
   FRONTEND_URL: str({ default: "http://localhost:3000" }),
 });
 

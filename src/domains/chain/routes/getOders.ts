@@ -17,7 +17,7 @@ export default async function () {
 
         // todo get user Id from token
 
-        const userId = (req as any).auth.user;
+        const userId = (req as any).auth.uid;
         const { lineId } = req.params;
         console.log(lineId);
         const orders = await OrderRepository.getOrders(lineId, userId);
