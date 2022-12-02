@@ -69,7 +69,7 @@ export async function getTags(websiteId: string): Promise<ITagModel[]> {
     {
       id: "3",
       name: "Store 3",
-      description:"Ziralda",
+      description:"Zeralda",
     },
   ];
 }

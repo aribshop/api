@@ -8,37 +8,45 @@ import createProduct from "./routes/createProduct";
 import createCustomProduct from "./routes/createCustomProduct";
 import createSite from "./routes/createSite";
 import { VerifyToken } from "../../firebase";
+import getProductDetails from "./routes/getProductDetails";
+import setProductStatus from "./routes/setProductStatus";
+import addProductQuantity from "./routes/addProductQuantity";
+import deleteProduct from "./routes/deleteProduct";
 
 const router = Router();
 
-interface Props {
-}
+interface Props {}
 
 export default async function (props: Props) {
+  router.use("/template", await getTemplate());
+  router.use("/templates", await getTemplates());
 
-    router.use("/template", await getTemplate());
-    router.use("/templates", await getTemplates());
+  router.post("/product/standard/create", VerifyToken, await createProduct());
+  router.post(
+    "/product/custom/create",
+    VerifyToken,
+    await createCustomProduct()
+  );
 
-    router.post("/product/standard/create", VerifyToken, await createProduct());
-    router.post("/product/custom/create", VerifyToken, await createCustomProduct());
+  router.use("/products", await getProducts());
+  router.use("/product/details", await getProductDetails());
+  router.post("/product/status", VerifyToken, await setProductStatus());
+  router.post("/product/addQuantity", VerifyToken, await addProductQuantity());
+  router.delete("/product", VerifyToken, await deleteProduct());
+  router.use("/product", await getProduct());
 
-    router.use("/products", await getProducts());
-    router.use("/product", await getProduct());
+  router.post("/new", VerifyToken, await createSite());
+  router.use("/", await getSite());
 
-    router.post("/new", VerifyToken, await createSite());
-    router.use("/", await getSite());
+  router.use(handleError);
 
-
-
-    router.use(handleError);
-
-    return router;
+  return router;
 }
 
 function handleError(err: any, req: any, res: any, next: (err?: any) => void) {
-    if (err.name === "UnauthorizedError") {
-        res.status(401).send("invalid token...");
-    } else {
-        next(err);
-    }
+  if (err.name === "UnauthorizedError") {
+    res.status(401).send("invalid token...");
+  } else {
+    next(err);
+  }
 }

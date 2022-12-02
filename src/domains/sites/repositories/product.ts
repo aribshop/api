@@ -5,6 +5,7 @@ import {
   IStandardProductModel,
 } from "../types/product";
 import { delay } from "../../../core/util";
+import { IProductDetailsAggregation } from "../types/aggregations/productDetails";
 
 export async function getProducts(siteId: string): Promise<IProductModel[]> {
   await delay(1000);
@@ -12,7 +13,7 @@ export async function getProducts(siteId: string): Promise<IProductModel[]> {
   // todo for testing purposes, return only one kind of product
   const custom: ICustomProductModel = {
     id: siteId,
-    isPaused: false,
+    isPaused: Math.random() > 0.5,
     metadata: {
       name: "My custom product",
       description: "My custom product description",
@@ -68,4 +69,38 @@ export async function createProduct(
     id: siteId,
     ...product,
   };
+}
+
+export async function getProductDetails(
+  productId: string,
+  siteId: string
+): Promise<IProductDetailsAggregation> {
+  await delay(1000);
+  return {
+    product: (await getProducts(siteId))[Math.random() > 0.5 ? 1 : 0],
+    link: "https://laknabil.me",
+    customers: 10,
+  };
+}
+
+export async function setProductStatus(
+  productId: string,
+  isPaused: boolean
+): Promise<void> {
+  await delay(1000);
+  // todo set the product status
+}
+
+// todo this should be part of Inventory Domain/Repository!
+export async function addQuantityToProduct(
+  productId: string,
+  quantity: number
+): Promise<void> {
+  await delay(1000);
+  // todo add quantity to the product
+}
+
+export async function deleteProduct(productId: string): Promise<void> {
+  await delay(1000);
+  // todo delete the product
 }
