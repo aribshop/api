@@ -14,7 +14,7 @@ const router = Router();
 
 export default async function () {
 
-    router.use("/:productId", async (req, res) => {
+    router.get("/:productId", async (req, res) => {
         const { productId } = req.params;
         const product = await ProductRepository.getProduct(productId);
 

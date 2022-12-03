@@ -10,14 +10,14 @@ const router = Router();
 interface Params {
   productId: string;
   isCustom: boolean;
-  addQuantity: number;
+  quantity: number;
 }
 
 const validation = {
   body: Joi.object({
     productId: Joi.string().required(),
     isCustom: Joi.boolean().required(),
-    addQuantity: Joi.number().required(),
+    quantity: Joi.number().required(),
   }).required(),
 };
 
@@ -26,7 +26,7 @@ router.use(validate(validation));
 export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
-    const { productId, addQuantity, isCustom } = params;
+    const { productId, quantity, isCustom } = params;
 
     if (isCustom) {
       return res.send(new Error("Custom products are not supported yet"));
@@ -34,7 +34,7 @@ export default async function () {
 
     const userId = (req as any).auth.uid;
 
-    await ProductRepository.addQuantityToProduct(productId, addQuantity);
+    await ProductRepository.addQuantityToProduct(productId, quantity);
 
     res.json({ success: true });
   });

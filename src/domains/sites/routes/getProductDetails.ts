@@ -6,13 +6,9 @@ const router = Router();
  * serving the data for the Frontend -> Products -> Right panel
  */
 export default async function () {
-  router.use("/:productId", async (req, res) => {
+  router.get("/:productId", async (req, res) => {
     const { productId } = req.params;
-    // todo we don't need the siteId here!
-    const details = await ProductRepository.getProductDetails(
-      productId,
-      "randomSiteId"
-    );
+    const details = await ProductRepository.getProductDetails(productId);
 
     res.json({ success: true, details });
   });

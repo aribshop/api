@@ -15,7 +15,7 @@ const router = Router();
 
 export default async function () {
 
-    router.use(async (req, res) => {
+    router.get("/",async (req, res) => {
 
         const templates = Object.values(TemplateType);
 

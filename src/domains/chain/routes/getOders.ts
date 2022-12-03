@@ -15,7 +15,6 @@ export default async function () {
 
     router.use("/:lineId", async (req, res) => {
 
-        // todo get user Id from token
 
         const userId = (req as any).auth.uid;
         const { lineId } = req.params;

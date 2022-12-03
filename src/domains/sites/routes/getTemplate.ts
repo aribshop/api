@@ -10,7 +10,7 @@ const router = Router();
 
 export default async function () {
 
-    router.use("/:siteId", async (req, res) => {
+    router.get("/:siteId", async (req, res) => {
         const { siteId } = req.params;
         const template = await SiteRepository.getTemplate(siteId)
 

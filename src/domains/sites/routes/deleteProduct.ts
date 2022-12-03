@@ -8,22 +8,10 @@ const router = Router();
  * deleting a product means, deleting the landing page, deleting the product from the database, Referrals ...
  */
 
-interface Params {
-  productId: string;
-}
-
-const validation = {
-  body: Joi.object({
-    productId: Joi.string().required(),
-  }).required(),
-};
-
-router.use(validate(validation));
-
 export default async function () {
-  router.use(async (req, res) => {
-    const params = req.body as Params;
-    const { productId } = params;
+  router.delete("/:productId", async (req, res) => {
+    const { productId } = req.params;
+
 
     const userId = (req as any).auth.uid;
 

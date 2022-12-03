@@ -72,11 +72,10 @@ export async function createProduct(
 
 export async function getProductDetails(
   productId: string,
-  siteId: string
 ): Promise<IProductDetailsAggregation> {
   await delay(1000);
   return {
-    product: (await getProducts(siteId))[Math.random() > 0.5 ? 1 : 0],
+    product: (await getProducts("ss"))[Math.random() > 0.5 ? 1 : 0],
     link: "https://laknabil.me",
     customers: 10,
   };
