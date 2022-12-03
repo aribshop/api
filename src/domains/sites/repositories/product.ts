@@ -1,17 +1,16 @@
 import {
-  ICustomProductModel,
+  ICustomProductEntity,
   IProductEntity,
-  IProductModel,
-  IStandardProductModel,
+  IStandardProductEntity,
 } from "../types/product";
 import { delay } from "../../../core/util";
 import { IProductDetailsAggregation } from "../types/aggregations/productDetails";
 
-export async function getProducts(siteId: string): Promise<IProductModel[]> {
+export async function getProducts(siteId: string): Promise<IProductEntity[]> {
   await delay(1000);
 
   // todo for testing purposes, return only one kind of product
-  const custom: ICustomProductModel = {
+  const custom: ICustomProductEntity = {
     id: siteId,
     isPaused: Math.random() > 0.5,
     metadata: {
@@ -37,7 +36,7 @@ export async function getProducts(siteId: string): Promise<IProductModel[]> {
     },
   };
 
-  const standard: IStandardProductModel = {
+  const standard: IStandardProductEntity = {
     id: "sdsd",
     metadata: {
       name: "My standard product",
@@ -55,19 +54,19 @@ export async function getProducts(siteId: string): Promise<IProductModel[]> {
   return [custom, standard];
 }
 
-export async function getProduct(productId: string): Promise<IProductModel> {
+export async function getProduct(productId: string): Promise<IProductEntity> {
   return (await getProducts(productId))[Math.random() > 0.5 ? 1 : 0];
 }
 
 export async function createProduct(
   product: IProductEntity,
   siteId: string
-): Promise<IProductModel> {
+): Promise<IProductEntity> {
   await delay(1000);
   // todo test if the product is valid, specially the custom product
   return {
-    id: siteId,
     ...product,
+    id: siteId,
   };
 }
 

@@ -1,7 +1,7 @@
-import { IProductModel } from "../product";
+import { IProductEntity } from "../product";
 
 export interface IProductDetailsAggregation {
-  product: IProductModel;
+  product: IProductEntity;
   link: string;
   customers: number;
 }
