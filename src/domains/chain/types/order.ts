@@ -1,32 +1,25 @@
-import { ILine, IProduct, ISite, IUser } from "../../../core/types/types";
+import { IClient, ILine, IProduct, ISite, IUser } from "../../../core/types/types";
 
 export interface IOrder {
   id: string;
-  user: IUser; // todo not user but a client!!!
+  client: IClient;
   site: ISite;
   product: IProduct;
   line: ILine;
   price: number;
   date: Date;
   lastUpdate: Date;
+  metadata?: any; // for exemple comes from the Referral system
 }
 
-export interface IOrderModel {
+export interface IOrderEntity {
   id: string;
-  user: string;
+  client: string;
   site: string;
   product: string;
   line: string;
   price: number;
   date: Date;
   lastUpdate: Date;
-}
-
-export interface IOrderEntity {
-  user: string;
-  site: string;
-  product: string;
-  price: number;
-  date: Date;
-  lastUpdate: Date;
+  metadata?: any;
 }

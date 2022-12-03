@@ -1,6 +1,6 @@
 import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
-import { IConfirmationModel, ILine, ILineModel } from "../types/chain";
+import { IConfirmationEntity, ILineEntity } from "../types/chain";
 
 export async function getChain(userId: string): Promise<IChainAggregation> {
   return {
@@ -12,7 +12,7 @@ export async function getChain(userId: string): Promise<IChainAggregation> {
   };
 }
 
-export async function getLines(userId: string): Promise<ILineModel[]> {
+export async function getLines(userId: string): Promise<ILineEntity[]> {
   await delay(1000);
 
   return [
@@ -21,9 +21,9 @@ export async function getLines(userId: string): Promise<ILineModel[]> {
       name: "production",
       isPublic: false,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
-      confirmations: ["email"],
+      confirmations: ["verification"],
       site: "123",
       next: "2",
     },
@@ -32,9 +32,9 @@ export async function getLines(userId: string): Promise<ILineModel[]> {
       name: "cooking",
       isPublic: false,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
-      confirmations: ["QR"],
+      confirmations: ["verification"],
       site: "123",
       next: "3",
     },
@@ -43,15 +43,15 @@ export async function getLines(userId: string): Promise<ILineModel[]> {
       name: "packaging",
       isPublic: false,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
-      confirmations: ["file"],
+      confirmations: ["verification"],
       site: "123",
     },
   ];
 }
 
-export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
+export async function getPublicLines(siteId: string): Promise<ILineEntity[]> {
   await delay(1000);
   // todo get the number of orders in each line
   // todo public line is a standalone type!
@@ -61,7 +61,7 @@ export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
       name: "line 1",
       isPublic: true,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
       confirmations: [],
       site: "123",
@@ -71,7 +71,7 @@ export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
       name: "line 2",
       isPublic: true,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
       confirmations: [],
       site: "123",
@@ -81,7 +81,7 @@ export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
       name: "line 3",
       isPublic: true,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
       confirmations: [],
       site: "123",
@@ -91,7 +91,7 @@ export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
       name: "line 4",
       isPublic: true,
       expiresTime: 1500,
-      maxOrders: 10,
+      maxQueue: 10,
       groups: [],
       confirmations: [],
       site: "123",
@@ -101,7 +101,7 @@ export async function getPublicLines(siteId: string): Promise<ILineModel[]> {
 
 export async function getConfirmations(
   orderID: string
-): Promise<IConfirmationModel[]> {
+): Promise<IConfirmationEntity[]> {
   await delay(1000);
 
   return [
@@ -110,7 +110,7 @@ export async function getConfirmations(
       date: new Date(),
       line: "1",
       order: "1",
-      type: "email",
+      type: "verification",
       user: "1",
     },
     {
@@ -118,7 +118,7 @@ export async function getConfirmations(
       date: new Date(),
       line: "1",
       order: "1",
-      type: "email",
+      type: "verification",
       user: "1",
     },
   ];

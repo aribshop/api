@@ -17,9 +17,7 @@ import getChain from "./routes/getChain";
 
 const router = Router();
 
-interface Props {
-  auth: string;
-}
+interface Props {}
 
 export default async function (props: Props) {
   // chain

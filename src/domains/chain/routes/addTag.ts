@@ -14,17 +14,13 @@ import { IGroupEntity } from "../types/group";
 const router = Router();
 
 interface Params {
-    group: IGroupEntity,
+    groupId: string;
     tag: string,
 }
 
 const validation = {
     body: Joi.object({
-        group: Joi.object({
-            id: Joi.string().required(),
-            site: Joi.string().required(),
-            name: Joi.string().required(),
-        }).required(),
+        groupId: Joi.string().required(),
         tag: Joi.string().required(),
     })
 }
@@ -37,8 +33,8 @@ export default async function () {
 
     router.use(async (req, res) => {
         const params = req.body as Params;
-        const { group, tag } = params;
-        await OrganizeRepository.addTagToGroup(tag, group);
+        const { groupId, tag } = params;
+        await OrganizeRepository.addTagToGroup(tag, groupId);
 
         res.json({ success: true });
     });

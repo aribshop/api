@@ -1,17 +1,17 @@
 import { IConfirmationEntity } from "../types/chain";
-import { IOrderEntity, IOrderModel } from "../types/order";
+import { IOrderEntity } from "../types/order";
 
 export async function moveOrder(
-  order: IOrderModel,
+  order: IOrderEntity,
   confirmation: IConfirmationEntity
-): Promise<IOrderModel> {
+): Promise<IOrderEntity> {
   if (confirmation.order !== order.id) {
     throw new Error("order id does not match confirmation order id");
   }
 // todo create new Confirmation
 // todo why we need to return the order?
   return {
-    user: order.user,
+    client: order.client,
     id: order.id,
     line: "new line",
     price: order.price,
@@ -25,13 +25,13 @@ export async function moveOrder(
 export async function getOrders(
   line: string,
   userId: string
-): Promise<IOrderModel[]> {
+): Promise<IOrderEntity[]> {
   // todo use the User ID to get groups
   // todo create another Order type that gives a glimpse of the Product and Site and User
   // todo get confirmations for each order!
   return [
     {
-      user: "Lakrib Nabil",
+      client: "Lakrib Nabil",
       id: "id",
       line: "1",
       price: 1,
@@ -41,7 +41,7 @@ export async function getOrders(
       lastUpdate: new Date(),
     },
     {
-      user: "Nabil Droid",
+      client: "Nabil Droid",
       id: "idedze",
       line: "2",
       price: 15,

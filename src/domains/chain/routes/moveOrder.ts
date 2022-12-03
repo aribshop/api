@@ -8,7 +8,7 @@ import { Router } from "express";
 import { validate, ValidationError, Joi } from 'express-validation'
 import * as OrderRepository from "../repositories/order";
 import { IConfirmationEntity } from "../types/chain";
-import { IOrderEntity, IOrderModel } from "../types/order";
+import { IOrderEntity } from "../types/order";
 
 
 
@@ -16,7 +16,7 @@ import { IOrderEntity, IOrderModel } from "../types/order";
 const router = Router();
 
 interface Params {
-    order: IOrderModel,
+    order: IOrderEntity,
     confirmation: IConfirmationEntity,
 }
 

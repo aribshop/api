@@ -15,7 +15,6 @@ export interface IUser {
   type: "user" | "admin" | "client"; // todo what is the difference between user and client?
 }
 
-// todo use IClient instead of IUser
 export interface IClient {
   id: string;
   name: string;

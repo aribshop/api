@@ -3,7 +3,8 @@ import * as SiteRepository from "../repositories/site";
 const router = Router();
 
 /**
- * get the site informations
+ * get the site informations (owner, description, template, etc)
+ * the public data
  */
 
 export default async function () {

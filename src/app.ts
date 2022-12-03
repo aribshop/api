@@ -5,12 +5,7 @@ import Sites from "./domains/sites";
 
 export async function init(props: { express: Express; auth: string }) {
   props.express.use("/users", await User({}));
-  props.express.use(
-    "/chain",
-    await Chain({
-      auth: props.auth,
-    })
-  );
+  props.express.use("/chain", await Chain({}));
 
   props.express.use("/site", await Sites({}));
 }

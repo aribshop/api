@@ -1,17 +1,17 @@
 import { delay } from "../../../core/util";
-import { ILineModel } from "../types/chain";
-import { IGroupEntity, IGroupModel, INewGroup } from "../types/group";
-import { ITagModel, INewTag } from "../types/tag";
+import { ILineEntity } from "../types/chain";
+import { IGroupEntity, INewGroup } from "../types/group";
+import { ITagEntity, INewTag } from "../types/tag";
 
-export async function addUserToGroup(user: string, group: IGroupEntity) {
+export async function addUserToGroup(user: string, groupId: string) {
   await delay(1000);
 }
 
-export async function addTagToGroup(tag: string, group: IGroupEntity) {
+export async function addTagToGroup(tag: string, groupId: string) {
   await delay(1000);
 }
 
-export async function createGroup(group: INewGroup): Promise<IGroupModel> {
+export async function createGroup(group: INewGroup): Promise<IGroupEntity> {
   await delay(1000);
 
   return {
@@ -19,12 +19,12 @@ export async function createGroup(group: INewGroup): Promise<IGroupModel> {
     site: group.site,
     name: group.name,
     users: [],
-    tag: [],
+    tags: [],
     viewOnly: group.viewOnly,
   };
 }
 
-export async function createTag(tag: INewTag): Promise<ITagModel> {
+export async function createTag(tag: INewTag): Promise<ITagEntity> {
   await delay(1000);
 
   return {
@@ -36,8 +36,8 @@ export async function createTag(tag: INewTag): Promise<ITagModel> {
 
 export async function addGroupToLine(
   lineId: string,
-  group: IGroupEntity
-): Promise<ILineModel> {
+  groupId: string
+): Promise<ILineEntity> {
   await delay(1000);
 
   return {
@@ -45,36 +45,36 @@ export async function addGroupToLine(
     name: "line 1",
     isPublic: true,
     expiresTime: 1500,
-    maxOrders: 10,
-    groups: [group.id],
+    maxQueue: 10,
+    groups: [groupId],
     confirmations: [],
     site: "123",
   };
 }
 
-export async function getTags(websiteId: string): Promise<ITagModel[]> {
+export async function getTags(websiteId: string): Promise<ITagEntity[]> {
   await delay(1000);
 
   return [
     {
       id: "1",
       name: "Store 1",
-      description:"Ain Benain",
+      description: "Ain Benain",
     },
     {
       id: "2",
       name: "Store 2",
-      description:"Charaga",
+      description: "Charaga",
     },
     {
       id: "3",
       name: "Store 3",
-      description:"Zeralda",
+      description: "Zeralda",
     },
   ];
 }
 
-export async function getGroups(userId: string): Promise<IGroupModel[]> {
+export async function getGroups(userId: string): Promise<IGroupEntity[]> {
   // todo the admin (website owner) is within all groups
   await delay(1000);
 
@@ -83,15 +83,15 @@ export async function getGroups(userId: string): Promise<IGroupModel[]> {
       id: "1",
       name: "Developeurs",
       users: [userId],
-      tag: [],
+      tags: [],
       viewOnly: false,
       site: "123",
     },
     {
       id: "2",
       name: "Marketing",
-      users: [userId,"123"],
-      tag: [],
+      users: [userId, "123"],
+      tags: [],
       viewOnly: true,
       site: "123",
     },
@@ -99,7 +99,7 @@ export async function getGroups(userId: string): Promise<IGroupModel[]> {
       id: "3",
       name: "commercial",
       users: [userId],
-      tag: [],
+      tags: [],
       viewOnly: false,
       site: "123",
     },

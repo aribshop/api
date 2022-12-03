@@ -1,7 +1,7 @@
-import { ILineModel } from "../chain";
+import { ILineEntity } from "../chain";
 
 export interface IChainAggregation {
-  lines: ILineModel[];
+  lines: ILineEntity[];
   site: string;
   id: string;
   name: string;
