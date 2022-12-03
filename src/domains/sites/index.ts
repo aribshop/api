@@ -18,23 +18,23 @@ const router = Router();
 interface Props {}
 
 export default async function (props: Props) {
-  router.use("/", await getSite());
   router.use("/template", await getTemplate());
   router.use("/templates", await getTemplates());
-
+  
   router.post("/product/standard", VerifyToken, await createProduct());
   router.post("/product/custom", VerifyToken, await createCustomProduct());
-
+  
   router.use("/products", await getProducts());
   router.use("/product", await getProduct());
   router.use("/product/details", await getProductDetails());
-
+  
   router.post("/product/status", VerifyToken, await setProductStatus());
   router.post("/product/addQuantity", VerifyToken, await addProductQuantity());
   router.use("/product", VerifyToken, await deleteProduct());
-
+  
   router.post("/new", VerifyToken, await createSite());
-
+  
+  router.use("/", await getSite()); // must be the last route!
   router.use(handleError);
 
   return router;
