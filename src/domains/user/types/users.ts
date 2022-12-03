@@ -1,4 +1,4 @@
-export interface IClientModel {
+export interface IClientEntity {
   id: string;
   name: string;
   location: string;
@@ -8,7 +8,7 @@ export interface IClientModel {
   created: Date;
 }
 
-export interface IStuffModel {
+export interface IStuffEntity {
   id: string;
   name: string;
   phone: string;
@@ -18,8 +18,7 @@ export interface IStuffModel {
   site: string;
 }
 
-// todo for now we use only models
-export interface IUserModel {
+export interface IUserEntity {
   id: string;
   name: string;
   phone: string;

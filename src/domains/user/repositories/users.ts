@@ -1,10 +1,10 @@
-import { IClientModel, IStuffModel, IUserModel } from "../types/users";
+import { IClientEntity,IStuffEntity,IUserEntity } from "../types/users";
 import { delay } from "../../../core/util";
 
 export async function getStuff(
   userId: string,
   siteId: string
-): Promise<IStuffModel> {
+): Promise<IStuffEntity> {
   await delay(1000);
 
   return {
@@ -17,7 +17,7 @@ export async function getStuff(
   };
 }
 
-export async function getClient(clientId: string): Promise<IClientModel> {
+export async function getClient(clientId: string): Promise<IClientEntity> {
   await delay(1000);
 
   return {
@@ -30,7 +30,7 @@ export async function getClient(clientId: string): Promise<IClientModel> {
   };
 }
 
-export async function getUser(userId: string): Promise<IUserModel> {
+export async function getUser(userId: string): Promise<IUserEntity> {
   await delay(1000);
 
   return {
@@ -42,7 +42,7 @@ export async function getUser(userId: string): Promise<IUserModel> {
   };
 }
 
-export async function getUserByPhone(phone: string): Promise<IUserModel> {
+export async function getUserByPhone(phone: string): Promise<IUserEntity> {
   await delay(1000);
 
   return {
