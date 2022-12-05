@@ -20,13 +20,14 @@ const validation = {
         site: Joi.object({
             template: Joi.object({
                 name: Joi.string().required(),
-                description: Joi.string().required(),
                 type: Joi.string().required(),
-
+                previewOG: Joi.string().required(),
                 // todo add validation for the template data
             }).required(),
             subname: Joi.string().required(),
             description: Joi.string().required(),
+            name: Joi.string().required(),
+
         }).required(),
     }).required(),
 }

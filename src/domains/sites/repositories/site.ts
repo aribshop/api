@@ -14,6 +14,7 @@ export async function getSite(subname: string): Promise<ISiteEntity> {
   return {
     subname,
     id: "sdsd",
+    name:"Amazon INC",
     description: "sdsd",
     user: "sdsd",
     template: {
