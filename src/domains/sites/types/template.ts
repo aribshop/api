@@ -3,10 +3,13 @@ export enum TemplateType {
   Store = "store",
 }
 
+
+// this Entity is the core template, a website never have a direct ITemplateEntity
+// this act as a base Entity "Abstraction"
 export interface ITemplateEntity {
   id: string;
   name: string;
-  description: string;
+  previewOG: string; 
   type: TemplateType;
 }
 
