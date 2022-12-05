@@ -1,19 +1,21 @@
-import { IClientEntity,IStuffEntity,IUserEntity } from "../types/users";
+import { IClientEntity, IUserEntity } from "../types/users";
 import { delay } from "../../../core/util";
+import { IStuffAggregation } from "../types/aggregations/stuff";
 
-export async function getStuff(
-  userId: string,
-  siteId: string
-): Promise<IStuffEntity> {
+export async function getStuff(userId: string): Promise<IStuffAggregation> {
   await delay(1000);
 
   return {
-    id: userId,
-    name: "stuff",
-    email: "pni20156789@gmail.com",
+    user: {
+      id: userId,
+      name: "Nabil",
+      email: "pni20156789@gmail.com",
+      phone: "123456789",
+      picture: "https://laknabil.me/nabil.png",
+    },
     groups: ["group1", "group2"],
-    phone: "123456789",
-    site: siteId,
+    site: "MIband7",
+    isAdmin: Math.random() > 0.5,
   };
 }
 

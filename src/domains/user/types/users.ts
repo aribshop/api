@@ -8,15 +8,6 @@ export interface IClientEntity {
   created: Date;
 }
 
-export interface IStuffEntity {
-  id: string;
-  name: string;
-  phone: string;
-  email: string;
-
-  groups: string[];
-  site: string;
-}
 
 export interface IUserEntity {
   id: string;

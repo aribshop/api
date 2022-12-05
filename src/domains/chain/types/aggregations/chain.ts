@@ -5,5 +5,5 @@ export interface IChainAggregation {
   site: string;
   id: string;
   name: string;
-  members: number;
+  members: number; // todo rename it as OpenOrders and subscribe to it RTDB
 }
