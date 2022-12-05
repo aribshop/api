@@ -13,7 +13,7 @@ const router = Router();
 export default async function () {
 
 
-    router.use("/:lineId", async (req, res) => {
+    router.get("/:lineId/orders", async (req, res) => {
 
 
         const userId = (req as any).auth.uid;

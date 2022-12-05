@@ -43,9 +43,9 @@ export default async function (props: Props) {
   //orders
   router.use("/order/confirmations", VerifyToken, await getConfirmations());
   router.post("/orders/move", VerifyToken, await moveOrder());
-  router.use("/orders", VerifyToken, await getOrders());
 
   router.use(handleError);
+  router.use("/line", VerifyToken, await getOrders());
 
   return router;
 }
