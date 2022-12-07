@@ -5,6 +5,7 @@ const router = Router();
 /**
  * get the site informations (owner, description, template, etc)
  * the public data
+ * // todo site + template, isn't that an aggregation!
  */
 
 export default async function () {
