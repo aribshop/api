@@ -13,6 +13,8 @@ export interface ITemplateEntity {
   type: TemplateType;
 }
 
+export type IUpdateTemplateEntity = Omit<ITemplateEntity, "id"> | ITemplateEntity
+
 export interface ILandingTemplateEntity extends ITemplateEntity {
   title: string;
   backgroundPicture: string;

@@ -12,12 +12,14 @@ import getProductDetails from "./routes/getProductDetails";
 import setProductStatus from "./routes/setProductStatus";
 import addProductQuantity from "./routes/addProductQuantity";
 import deleteProduct from "./routes/deleteProduct";
+import setTemplate from "./routes/setTemplate";
 
 const router = Router();
 
 interface Props {}
 
 export default async function (props: Props) {
+  router.use("/template",VerifyToken, await setTemplate());
   router.use("/template", await getTemplate());
   router.use("/templates", await getTemplates());
   

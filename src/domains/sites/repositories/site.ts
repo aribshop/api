@@ -5,6 +5,7 @@ import {
   ILandingTemplateEntity,
   IStoreTemplateEntity,
   ITemplateEntity,
+  IUpdateTemplateEntity,
   TemplateType,
 } from "../types/template";
 
@@ -81,4 +82,16 @@ export async function createSite(
     },
     id: "sdsd",
   };
+}
+
+
+
+export async function setTemplate(siteId:string,template:IUpdateTemplateEntity):Promise<ITemplateEntity>{
+
+  await delay(1000);
+  return {
+    ...template,
+    id:siteId
+  } as ITemplateEntity;
+
 }

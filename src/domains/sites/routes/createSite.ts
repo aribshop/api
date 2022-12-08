@@ -7,7 +7,7 @@ import * as SiteRepository from "../repositories/site";
 
 const router = Router();
 /**
- * create a site, with a template & template data
+ * create a site
  */
 
 
