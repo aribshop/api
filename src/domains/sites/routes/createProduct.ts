@@ -20,12 +20,14 @@ interface Params {
 const validation = {
     body: Joi.object({
         product: Joi.object({
+            id: Joi.string().required(),
+            isCustom: Joi.boolean().valid(false).required(),
             metadata: Joi.object({
                 name: Joi.string().required(),
                 description: Joi.string().required(),
                 tag: Joi.array().items(Joi.string()).required(),
             }).required(),
-            isCustom: Joi.boolean().valid(false).required(),
+            isPaused: Joi.boolean().valid(false).required(),
             price: Joi.number().required(),
             quantity: Joi.number().required(),
             discount: Joi.number().required(),

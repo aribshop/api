@@ -21,7 +21,6 @@ export async function getProducts(siteId: string): Promise<IProductEntity[]> {
     isCustom: true,
     dailyLimit: 10,
     form: {
-      id: "sdsd",
       version: 1,
       lastUpdated: new Date(),
       fields: [

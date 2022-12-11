@@ -7,7 +7,9 @@ const ENV = cleanEnv(process.env, {
     default: null,
   }),
   TEMP_USER: json({
-    default: null,
+    default: {
+      uid:"1234567890",
+    },
   }),
   FRONTEND_URL: str({ default: "http://localhost:3000" }),
 });

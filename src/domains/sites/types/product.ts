@@ -37,7 +37,7 @@ export interface ICustomProductFormEntity {
   version: number;
   lastUpdated: Date;
   fields: ICustomProductFormFieldEntity[];
-  id: string;
+  //id: string; //TODO this is not needed, the id is the product id 
 }
 
 export interface ICustomProductFormFieldEntity {

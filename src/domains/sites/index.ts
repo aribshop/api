@@ -13,6 +13,7 @@ import setProductStatus from "./routes/setProductStatus";
 import addProductQuantity from "./routes/addProductQuantity";
 import deleteProduct from "./routes/deleteProduct";
 import setTemplate from "./routes/setTemplate";
+import { ValidationError } from "express-validation";
 
 const router = Router();
 
@@ -43,6 +44,10 @@ export default async function (props: Props) {
 }
 
 function handleError(err: any, req: any, res: any, next: (err?: any) => void) {
+  if (err instanceof ValidationError) {
+    return res.status(err.statusCode).json(err)
+  }
+
   if (err.name === "UnauthorizedError") {
     res.status(401).send("invalid token...");
   } else {

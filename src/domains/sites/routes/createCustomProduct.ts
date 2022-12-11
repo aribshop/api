@@ -21,12 +21,17 @@ interface Params {
 const validation = {
     body: Joi.object({
         product: Joi.object({
+            id: Joi.string().required(),
+            
             metadata: Joi.object({
                 name: Joi.string().required(),
                 description: Joi.string().required(),
                 tag: Joi.array().items(Joi.string()).required(),
             }).required(),
             isCustom: Joi.boolean().valid(true).required(),
+            isPaused: Joi.boolean().valid(false).required(),
+            dailyLimit: Joi.number(), // FIXME this is a quick fix, the /getCustomProduct is returning this! and in the frontend we are using the same type, i think this should be an aggregated with the lines!
+
             form: Joi.object({
                 version: Joi.number().required(),
                 lastUpdated: Joi.date().required(),
