@@ -14,7 +14,7 @@ export interface ILine {
   site: ISite;
 }
 
-type ConfirmationType = "verification";
+export type ConfirmationType = "verification";
 
 export interface ILineEntity {
   id: string;
@@ -59,6 +59,7 @@ export interface IConfirmationEntity {
   order: string;
   src?: string;
   date: Date;
+  // we don't need isConfirmed (in case the type is Yes/now) because the lack of confirmation means it's not confirmed
 }
 
 

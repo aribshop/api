@@ -14,6 +14,7 @@ import getGroups from "./routes/getGroups";
 import { VerifyToken } from "../../firebase";
 import getConfirmations from "./routes/getConfirmations";
 import getChain from "./routes/getChain";
+import getUnconfirmed from "./routes/getUnconfirmed";
 
 const router = Router();
 
@@ -42,6 +43,7 @@ export default async function (props: Props) {
 
   //orders
   router.use("/order/confirmations", VerifyToken, await getConfirmations());
+  router.use("/order/unconfirmed", VerifyToken, await getUnconfirmed());
   router.post("/orders/move", VerifyToken, await moveOrder());
 
   router.use(handleError);

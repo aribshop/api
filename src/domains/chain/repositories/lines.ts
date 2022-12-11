@@ -1,5 +1,6 @@
 import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
+import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity } from "../types/chain";
 
 export async function getChain(userId: string): Promise<IChainAggregation> {
@@ -99,7 +100,7 @@ export async function getPublicLines(siteId: string): Promise<ILineEntity[]> {
   ];
 }
 
-export async function getConfirmations(
+export async function getConfirmedConfirmations(
   orderID: string
 ): Promise<IConfirmationEntity[]> {
   await delay(1000);
@@ -122,4 +123,17 @@ export async function getConfirmations(
       user: "1",
     },
   ];
+}
+
+
+// scoped to one line!
+export async function getUnconfirmedConfirmations(orderId:string):Promise<IUnConfirmedAggregation>{
+  return {
+    confirmationTypes: ["verification"],
+    nextLine: "2",
+    orderId,
+    title:"Hello Title",
+    currentLine: "1",
+    
+  }
 }

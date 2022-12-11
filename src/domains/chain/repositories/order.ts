@@ -2,22 +2,22 @@ import { IConfirmationEntity } from "../types/chain";
 import { IOrderEntity } from "../types/order";
 
 export async function moveOrder(
-  order: IOrderEntity,
+  orderId:string,
   confirmation: IConfirmationEntity
 ): Promise<IOrderEntity> {
-  if (confirmation.order !== order.id) {
+  if (confirmation.order !== orderId) {
     throw new Error("order id does not match confirmation order id");
   }
 // todo create new Confirmation
 // todo why we need to return the order?
   return {
-    client: order.client,
-    id: order.id,
+    client: "client A",
+    id: orderId,
     line: "new line",
-    price: order.price,
-    product: order.product,
-    site: order.site,
-    date: order.date,
+    price: 111,
+    product: "sdsd",
+    site: "dsdsd",
+    date: new Date(),
     lastUpdate: new Date(),
   };
 }

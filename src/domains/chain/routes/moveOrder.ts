@@ -16,20 +16,17 @@ import { IOrderEntity } from "../types/order";
 const router = Router();
 
 interface Params {
-    order: IOrderEntity,
+    orderId: string,
     confirmation: IConfirmationEntity,
 }
 
 const validation = {
     body: Joi.object({
-        order: Joi.object({
-            id: Joi.string().required(),
-            user: Joi.string().required(),
-            site: Joi.string().required(),
-            product: Joi.string().required(),
-            price: Joi.number().required(),
-        }).required(),
+        orderId: Joi.string().required(),
         confirmation: Joi.object({
+            id: Joi.string().required(),
+            date: Joi.date().required(),
+            src: Joi.string(),
             type: Joi.string().required(),
             group: Joi.string(),
             user: Joi.string(),
@@ -46,12 +43,12 @@ export default async function () {
 
     router.use(async (req, res) => {
         const params = req.body as Params;
-        const { confirmation, order } = params;
+        const { confirmation, orderId } = params;
 
         // todo check if confirmation is valid for the order and line
 
         // todo attach the src to the confirmation if it is a file
-        const model = await OrderRepository.moveOrder(order, confirmation);
+        const model = await OrderRepository.moveOrder(orderId, confirmation);
 
         res.json({ success: true, line: model });
     });
