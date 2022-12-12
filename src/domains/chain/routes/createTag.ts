@@ -14,6 +14,9 @@ const validation = {
     body: Joi.object({
         tag: Joi.object({
             name: Joi.string().required(),
+            description: Joi.string().required(),
+
+            // todo why you didn't include the SiteId, and you did in the group?
         }).required(),
     })
 }

@@ -30,7 +30,7 @@ export async function createTag(tag: INewTag): Promise<ITagEntity> {
   return {
     id: "123",
     name: tag.name,
-    description: "",
+    description: tag.description,
   };
 }
 

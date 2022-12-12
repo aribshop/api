@@ -13,4 +13,5 @@ export interface ITagEntity {
 
 export interface INewTag {
   name: string;
+  description: string;
 }
