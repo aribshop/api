@@ -11,6 +11,7 @@ export interface IProductEntity {
   metadata: IProductMetadataEntity;
   isCustom: boolean;
   isPaused: boolean;
+  // todo, what about the siteId, for now, we are implementing subcollection as a solution
 }
 
 export interface IProductMetadataEntity {

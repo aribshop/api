@@ -6,15 +6,12 @@ export async function getStuff(userId: string): Promise<IStuffAggregation> {
   await delay(1000);
 
   return {
-    user: {
-      id: userId,
-      name: "Nabil",
-      email: "pni20156789@gmail.com",
-      phone: "123456789",
-      picture: "https://laknabil.me/nabil.png",
-    },
-    groups: ["group1", "group2"],
-    site: "MIband7",
+    uid: userId,
+    name: "Nabil",
+    email: "pni20156789@gmail.com",
+    phone: "123456789",
+    picture: "https://laknabil.me/nabil.png",
+    site: "amazon",
     isAdmin: Math.random() > 0.5,
   };
 }
@@ -36,7 +33,7 @@ export async function getUser(userId: string): Promise<IUserEntity> {
   await delay(1000);
 
   return {
-    id: userId,
+    uid: userId,
     name: "user",
     email: "pni20156789@gmail.com",
     phone: "123456789",
@@ -48,7 +45,7 @@ export async function getUserByPhone(phone: string): Promise<IUserEntity> {
   await delay(1000);
 
   return {
-    id: "123",
+    uid: "123",
     name: "user",
     email: "pni20156789@gmail.com",
     phone,

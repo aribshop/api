@@ -10,7 +10,7 @@ export interface IClientEntity {
 
 
 export interface IUserEntity {
-  id: string;
+  uid: string;
   name: string;
   phone: string;
   email: string;

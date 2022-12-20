@@ -6,16 +6,18 @@ const router = Router();
  * get template data for a specific site
  */
 
-
-
 export default async function () {
+  router.get("/:siteId", async (req, res, next) => {
+    const { siteId } = req.params;
 
-    router.get("/:siteId", async (req, res) => {
-        const { siteId } = req.params;
-        const template = await SiteRepository.getTemplate(siteId)
+    try {
+      const template = await SiteRepository.getTemplate(siteId);
 
-        res.json({ success: true, template });
-    });
+      res.json({ success: true, template });
+    } catch (e) {
+      next(e);
+    }
+  });
 
-    return router;
+  return router;
 }

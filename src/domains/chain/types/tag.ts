@@ -9,9 +9,11 @@ export interface ITagEntity {
   id: string;
   name: string;
   description: string;
+  site: string;
 }
 
 export interface INewTag {
   name: string;
   description: string;
+  site: string;
 }

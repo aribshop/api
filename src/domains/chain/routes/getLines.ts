@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getAuthStuff } from "../../../firebase";
 import * as LineRepository from "../repositories/lines";
 
 /**
@@ -8,11 +9,15 @@ import * as LineRepository from "../repositories/lines";
 const router = Router();
 
 export default async function () {
-  router.use(async (req, res) => {
-    const userId = (req as any).auth.uid;
+  router.use(async (req, res, next) => {
+    try {
+      const user = getAuthStuff(req);
 
-    const lines = await LineRepository.getLines(userId);
-    res.json({ success: true, lines });
+      const lines = await LineRepository.getLines(user.site);
+      res.json({ success: true, lines });
+    } catch (e) {
+      next(e);
+    }
   });
 
   return router;

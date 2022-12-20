@@ -5,87 +5,70 @@ import {
 } from "../types/product";
 import { delay } from "../../../core/util";
 import { IProductDetailsAggregation } from "../types/aggregations/productDetails";
+import { ProductCollection } from "./db";
+import { UnableToUpdateProduct } from "../errors";
 
 export async function getProducts(siteId: string): Promise<IProductEntity[]> {
-  await delay(1000);
+  const products = await ProductCollection(siteId).get();
 
-  // todo for testing purposes, return only one kind of product
-  const custom: ICustomProductEntity = {
-    id: siteId,
-    isPaused: Math.random() > 0.5,
-    metadata: {
-      name: "My custom product",
-      description: "My custom product description",
-      tag: ["tag1", "Referral"],
-    },
-    isCustom: true,
-    dailyLimit: 10,
-    form: {
-      version: 1,
-      lastUpdated: new Date(),
-      fields: [
-        {
-          id: "sdsd",
-          name: "My field",
-          type: "text",
-          required: true,
-          options: [],
-        },
-      ],
-    },
-  };
-
-  const standard: IStandardProductEntity = {
-    id: "sdsd",
-    metadata: {
-      name: "My standard product",
-      description: "My standard product description",
-      tag: ["A/B", "tag2"],
-    },
-    isCustom: false,
-    price: 100,
-    isPaused: false,
-    quantity: 10,
-    discount: 0,
-    picture: "https://laknabil.me/background.png",
-  };
-
-  return [custom, standard];
+  return products.docs.map((doc) => {
+    const product = doc.data() as IProductEntity;
+    return {
+      ...product,
+      id: doc.id,
+    };
+  });
 }
 
-export async function getProduct(productId: string): Promise<IProductEntity> {
-  return (await getProducts(productId))[Math.random() > 0.5 ? 1 : 0];
+export async function getProduct(
+  siteId: string,
+  productId: string
+): Promise<IProductEntity> {
+  const doc = await ProductCollection(siteId).doc(productId).get();
+  const product = doc.data() as IProductEntity;
+
+  return {
+    ...product,
+    id: doc.id,
+  };
 }
 
 export async function createProduct(
   product: IProductEntity,
   siteId: string
 ): Promise<IProductEntity> {
-  await delay(1000);
+  const doc = await ProductCollection(siteId).doc(product.id).set(product);
+
   // todo test if the product is valid, specially the custom product
   return {
     ...product,
-    id: siteId,
   };
 }
 
 export async function getProductDetails(
   productId: string,
+  siteId:string,
 ): Promise<IProductDetailsAggregation> {
   await delay(1000);
   return {
-    product: (await getProducts("ss"))[Math.random() > 0.5 ? 1 : 0],
+    product: (await getProducts(siteId))[Math.random() > 0.5 ? 1 : 0],
     link: "https://laknabil.me",
     customers: 10,
   };
 }
 
 export async function setProductStatus(
+  siteId: string,
   productId: string,
   isPaused: boolean
 ): Promise<void> {
-  await delay(1000);
-  // todo set the product status
+  try {
+    await ProductCollection(siteId).doc(productId).update({
+      isPaused,
+    });
+  } catch (e) {
+    throw new UnableToUpdateProduct(siteId, productId);
+  }
 }
 
 // todo this should be part of Inventory Domain/Repository!

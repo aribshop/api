@@ -2,6 +2,7 @@ import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
 import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
+import { LinesCollection } from "./db";
 
 export async function getChain(userId: string): Promise<IChainAggregation> {
   return {
@@ -13,43 +14,15 @@ export async function getChain(userId: string): Promise<IChainAggregation> {
   };
 }
 
-export async function getLines(userId: string): Promise<ILineEntity[]> {
-  await delay(1000);
+export async function getLines(siteId: string): Promise<ILineEntity[]> {
+  const lines = await LinesCollection.where("site", "==", siteId).get();
 
-  return [
-    {
-      id: "1",
-      name: "production",
-      isPublic: false,
-      expiresTime: 1500,
-      maxQueue: 10,
-      groups: [],
-      confirmations: ["verification"],
-      site: "123",
-      next: "2",
-    },
-    {
-      id: "2",
-      name: "cooking",
-      isPublic: false,
-      expiresTime: 1500,
-      maxQueue: 10,
-      groups: [],
-      confirmations: ["verification"],
-      site: "123",
-      next: "3",
-    },
-    {
-      id: "3",
-      name: "packaging",
-      isPublic: false,
-      expiresTime: 1500,
-      maxQueue: 10,
-      groups: [],
-      confirmations: ["verification"],
-      site: "123",
-    },
-  ];
+  return lines.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    } as ILineEntity;
+  });
 }
 
 export async function getPublicLines(siteId: string): Promise<ILineEntity[]> {
@@ -140,16 +113,18 @@ export async function getUnconfirmedConfirmations(
 
 // create new line
 export async function createLine(line: INewLine): Promise<ILineEntity> {
-  await delay(1000);
-  return {
-    id: "1",
+  const newLine = {
     name: line.name,
     isPublic: false,
     next: line.next,
     expiresTime: line.expiresTime,
-    maxQueue: line.maxOrders, // todo rename it to MaxQueue
+    maxQueue: line.maxOrders,
     groups: [],
     confirmations: line.confirmations,
     site: line.site,
   };
+
+  const doc = await LinesCollection.add(newLine);
+
+  return { ...newLine, id: doc.id };
 }

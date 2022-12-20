@@ -28,8 +28,9 @@ export default async function (props: Props) {
   router.post("/product/custom", VerifyToken, await createCustomProduct());
   
   router.use("/products", await getProducts());
+  // todo not good name, since it is a private details
+  router.use("/product/details",VerifyToken, await getProductDetails());
   router.use("/product", await getProduct());
-  router.use("/product/details", await getProductDetails());
   
   router.post("/product/status", VerifyToken, await setProductStatus());
   router.post("/product/addQuantity", VerifyToken, await addProductQuantity());

@@ -1,97 +1,73 @@
 import { delay } from "../../../core/util";
+import { SiteNotFound, TemplateNotFound } from "../errors";
+import { ITemplatedSiteAggregation } from "../types/aggregations/TemplatedSite";
 
 import { ISiteEntity } from "../types/site";
 import {
-  ILandingTemplateEntity,
-  IStoreTemplateEntity,
   ITemplateEntity,
   IUpdateTemplateEntity,
-  TemplateType,
 } from "../types/template";
+import { SiteCollection, TemplateCollection } from "./db";
 
-export async function getSite(subname: string): Promise<ISiteEntity> {
-  await delay(1000);
+export async function getSite(
+  subname: string
+): Promise<ITemplatedSiteAggregation> {
+  const siteDoc = await SiteCollection.doc(subname).get();
+  if (!siteDoc.exists) throw new SiteNotFound(subname);
+
+  const templateDoc = await TemplateCollection.doc(subname).get();
+  if (!templateDoc.exists) throw new TemplateNotFound(subname);
+
+  const site = siteDoc.data() as ISiteEntity;
+  const template = templateDoc.data() as ITemplateEntity;
 
   return {
-    subname,
-    id: "sdsd",
-    name:"Amazon INC",
-    description: "sdsd",
-    user: "sdsd",
-    template: {
-      // the generic TemplateModel
-      id: "sdsd",
-      type: TemplateType.Landing,
-      name: "Landing",
-      description: "Landing template",
-        previewOG:"https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1647366075%2Ffront%2Fimport%2Fnextjs.png&w=1920&q=75",
-    },
-  } as ISiteEntity;
+    ...site,
+    template,
+  } as ITemplatedSiteAggregation;
 }
 
 export async function getTemplate(siteId: string): Promise<ITemplateEntity> {
-  await delay(1000);
+  const templateDoc = await TemplateCollection.doc(siteId).get();
+  if (!templateDoc.exists) throw new TemplateNotFound(siteId);
 
-  if (siteId.length % 2 === 0) {
-    return {
-      id: siteId,
-      name: "My template",
-      description: "My template description",
-      type: TemplateType.Landing,
-      backgroundPicture: "https://laknabil.me/background.png",
-      profilePicture: "https://laknabil.me/nabil.png",
-      title: "Lakrib Nabil",
-      previewOG:
-        "https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1647366075%2Ffront%2Fimport%2Fnextjs.png&w=1920&q=75",
+  const template = templateDoc.data() as ITemplateEntity;
 
-      sections: [
-        {
-          id: "sdsd",
-          title: "My section",
-          description: "My section description",
-          backgroundPicture: "https://laknabil.me/background.png",
-        },
-      ],
-    } as ILandingTemplateEntity;
-  } else {
-    return {
-      id: siteId,
-      name: "My template",
-      description: "My template description",
-      type: TemplateType.Store,
-      backgroundPicture: "https://laknabil.me/background.png",
-      title: "E-commerce",
-      previewOG:
-        "https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1647366075%2Ffront%2Fimport%2Fnextjs.png&w=1920&q=75",
-    } as IStoreTemplateEntity;
-  }
+  return template;
 }
 
 export async function createSite(
   site: ISiteEntity,
+  template: ITemplateEntity,
   userId: string
-): Promise<ISiteEntity> {
-  await delay(1000);
-  // todo validte the template data !
+): Promise<ITemplatedSiteAggregation> {
+  await SiteCollection.doc(site.subname).set(site);
+  await TemplateCollection.doc(site.subname).set(template);
+
   return {
     ...site,
     user: userId,
     template: {
-      ...site.template,
-      id: "sdsd",
+      ...template,
+      id: site.subname,
     },
-    id: "sdsd",
   };
 }
 
+export async function setTemplate(
+  siteId: string,
+  template: IUpdateTemplateEntity
+): Promise<ITemplateEntity> {
+  try {
+    await TemplateCollection.doc(siteId).update({
+      ...template,
+    });
+  } catch {
+    throw new TemplateNotFound(siteId);
+  }
 
-
-export async function setTemplate(siteId:string,template:IUpdateTemplateEntity):Promise<ITemplateEntity>{
-
-  await delay(1000);
   return {
     ...template,
-    id:siteId
+    id: siteId,
   } as ITemplateEntity;
-
 }

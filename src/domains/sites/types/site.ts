@@ -15,7 +15,6 @@ export interface ISite {
 }
 
 export interface ISiteEntity {
-  id: string;
   user: string;
   template: ITemplateEntity; // FIXME for now the api for creating new website will force the template, but this goes against the idea of one API one Task. you know `preview`
   subname: string;

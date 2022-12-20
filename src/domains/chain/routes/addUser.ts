@@ -27,6 +27,7 @@ export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
     const { groupId, user } = params;
+    // todo add site to the user custom claims
     await OrganizeRepository.addUserToGroup(user, groupId);
 
     res.json({ success: true });

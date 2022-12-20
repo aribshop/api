@@ -22,9 +22,9 @@ interface Params {
 
 const validation = {
     body: Joi.object({
-        orderId: Joi.string().required(),
+        orderId: Joi.string().uuid().required(),
         confirmation: Joi.object({
-            id: Joi.string().required(),
+            id: Joi.string().uuid().required(),
             date: Joi.date().required(),
             src: Joi.string(),
             type: Joi.string().required(),

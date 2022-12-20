@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getAuthStuff } from "../../../firebase";
 import * as UserRepository from "../repositories/users";
 
 const router = Router();
@@ -9,13 +10,22 @@ const router = Router();
  * 2) from id => for the Admin!
  */
 export default async function () {
-  router.get("/:stuffId?", async (req, res) => {
-    const { stuffId } = req.params;
-    const stuffIdFromAuth = (req as any).auth.uid;
+  router.get("/:stuffId?", async (req, res, next) => {
+    try {
+      const { stuffId } = req.params;
 
-
-    const stuff = await UserRepository.getStuff(stuffId ?? stuffIdFromAuth);
-    res.json({ success: true, stuff });
+      if (stuffId) {
+        getAuthStuff(req); 
+        const stuff = await UserRepository.getStuff(stuffId);
+        res.json({ success: true, stuff });
+      } else {
+        // todo refactor this!, specially the main IF!
+        const stuff = (req as any).auth;
+        res.json({ success: true, stuff });
+      }
+    } catch (e) {
+      next(e);
+    }
   });
 
   return router;

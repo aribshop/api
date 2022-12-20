@@ -9,14 +9,16 @@ const router = Router();
  */
 
 export default async function () {
+  router.use("/:subname", async (req, res,next) => {
+    const { subname } = req.params;
+    
+    try {
+      const site = await SiteRepository.getSite(subname);
+      res.json({ success: true, site });
+    } catch (error) {
+        next(error);
+    }
+  });
 
-    router.use("/:subname",async (req, res) => {
-        const { subname } = req.params;
-        console.log("subname", subname);
-        const site = await SiteRepository.getSite(subname);
-
-        res.json({ success: true, site });
-    });
-
-    return router;
+  return router;
 }

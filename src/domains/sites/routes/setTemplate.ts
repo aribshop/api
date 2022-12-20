@@ -13,39 +13,42 @@ const router = Router();
  */
 
 interface Params {
-	template: IUpdateTemplateEntity;
+  template: IUpdateTemplateEntity;
 }
 
 const validation = {
-	body: Joi.object({
-		template: Joi.object({
-			name: Joi.string().required(),
-			type: Joi.string().required(),
-			description: Joi.string().required(),
-			previewOG: Joi.string().required(),
-			id: Joi.string(), // FIXME what's the purpuse of ID!
-			// todo add validation for the template data
-		}).unknown(true),
-	}),
+  body: Joi.object({
+    template: Joi.object({
+      name: Joi.string().required(),
+      type: Joi.string().required(),
+      description: Joi.string().required(),
+      previewOG: Joi.string().required(),
+      id: Joi.string(), // FIXME what's the purpuse of ID!
+      // todo add validation for the template data
+    }).unknown(true),
+  }),
 };
-
 
 // FIXME add validation!
 //router.use(validate(validation));
 
 export default async function () {
-	router.post("/set/:siteId", async (req, res) => {
-		console.log("hello world!");
-		const params = req.body as Params;
-		const { siteId } = req.params;
-		const { template } = params;
+  router.post("/set/:siteId", async (req, res, next) => {
+    console.log("hello world!");
+    const params = req.body as Params;
+    const { siteId } = req.params;
+    const { template } = params;
 
-		const userId = (req as any).auth.uid;
+    const userId = (req as any).auth.uid;
 
-		const model = await SiteRepository.setTemplate(siteId, template);
+    try {
+      const model = await SiteRepository.setTemplate(siteId, template);
 
-		res.json({ success: true, template: model });
-	});
+      res.json({ success: true, template: model });
+    } catch (error) {
+      next(error);
+    }
+  });
 
-	return router;
+  return router;
 }
