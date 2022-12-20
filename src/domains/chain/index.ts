@@ -15,6 +15,7 @@ import { VerifyToken } from "../../firebase";
 import getConfirmations from "./routes/getConfirmations";
 import getChain from "./routes/getChain";
 import getUnconfirmed from "./routes/getUnconfirmed";
+import createLine from "./routes/createLine";
 
 const router = Router();
 
@@ -26,6 +27,7 @@ export default async function (props: Props) {
 
   // lines
   router.get("/lines", VerifyToken, await getLines());
+  router.post("/line", VerifyToken, await createLine());
   router.get("/lines/public", await publicLines());
 
   // add user to group

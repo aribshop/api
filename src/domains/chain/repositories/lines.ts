@@ -1,14 +1,14 @@
 import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
 import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
-import { IConfirmationEntity, ILineEntity } from "../types/chain";
+import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
 
 export async function getChain(userId: string): Promise<IChainAggregation> {
   return {
     id: "123",
     name: "chain 1",
     site: "123",
-    members:Math.floor(Math.random() * 100),
+    members: Math.floor(Math.random() * 100),
     lines: await getLines(userId),
   };
 }
@@ -125,15 +125,31 @@ export async function getConfirmedConfirmations(
   ];
 }
 
-
 // scoped to one line!
-export async function getUnconfirmedConfirmations(orderId:string):Promise<IUnConfirmedAggregation>{
+export async function getUnconfirmedConfirmations(
+  orderId: string
+): Promise<IUnConfirmedAggregation> {
   return {
     confirmationTypes: ["verification"],
     nextLine: "2",
     orderId,
-    title:"Hello Title",
+    title: "Hello Title",
     currentLine: "1",
-    
-  }
+  };
+}
+
+// create new line
+export async function createLine(line: INewLine): Promise<ILineEntity> {
+  await delay(1000);
+  return {
+    id: "1",
+    name: line.name,
+    isPublic: false,
+    next: line.next,
+    expiresTime: line.expiresTime,
+    maxQueue: line.maxOrders, // todo rename it to MaxQueue
+    groups: [],
+    confirmations: line.confirmations,
+    site: line.site,
+  };
 }

@@ -36,7 +36,7 @@ export interface INewLine {
   next?: string;
   expiresTime: number;
   site: string;
-  confirmations: ConfirmationType[]; // todo unknown if this is needed
+  confirmations: ConfirmationType[];
 }
 
 export interface IConfirmation {
