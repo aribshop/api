@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getAuthStuff } from "../../../firebase";
 import * as OrganizeRepository from "../repositories/organize";
 
 /**
@@ -10,8 +11,8 @@ const router = Router();
 export default async function () {
   router.use(async (req, res) => {
 
-    const userId = (req as any).auth.uid;
-    const groups = await OrganizeRepository.getGroups(userId);
+    const stuff = getAuthStuff(req);
+    const groups = await OrganizeRepository.getGroups(stuff.uid);
     res.json({ success: true, groups });
   });
 

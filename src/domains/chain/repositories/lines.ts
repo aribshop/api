@@ -4,13 +4,13 @@ import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
 import { LinesCollection } from "./db";
 
-export async function getChain(userId: string): Promise<IChainAggregation> {
+export async function getChain(userId: string,siteId:string): Promise<IChainAggregation> {
   return {
     id: "123",
     name: "chain 1",
     site: "123",
     members: Math.floor(Math.random() * 100),
-    lines: await getLines(userId),
+    lines: await getLines(siteId),
   };
 }
 
@@ -116,7 +116,7 @@ export async function createLine(line: INewLine): Promise<ILineEntity> {
   const newLine = {
     name: line.name,
     isPublic: false,
-    next: line.next,
+    next: line.next ?? null,
     expiresTime: line.expiresTime,
     maxQueue: line.maxOrders,
     groups: [],
@@ -126,5 +126,5 @@ export async function createLine(line: INewLine): Promise<ILineEntity> {
 
   const doc = await LinesCollection.add(newLine);
 
-  return { ...newLine, id: doc.id };
+  return { ...newLine, id: doc.id, next: line.next };
 }

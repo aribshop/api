@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getAuthStuff } from "../../../firebase";
 import * as LineRepository from "../repositories/lines";
 
 /**
@@ -9,8 +10,8 @@ const router = Router();
 
 export default async function () {
   router.use(async (req, res) => {
-    const userId = (req as any).auth.uid;
-    const chain = await LineRepository.getChain(userId);
+    const stuff = getAuthStuff(req);
+    const chain = await LineRepository.getChain(stuff.uid,stuff.site);
     res.json({ success: true, chain });
   });
 

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getAuthStuff } from "../../../firebase";
 import * as OrganizeRepository from "../repositories/organize";
 
 /**
@@ -9,8 +10,9 @@ const router = Router();
 
 export default async function () {
   router.use(async (req, res) => {
-    const websiteId = "123";
-    const tags = await OrganizeRepository.getTags(websiteId);
+    const stuff = getAuthStuff(req);
+    // todo filter only tags for the given user
+    const tags = await OrganizeRepository.getTags(stuff.site);
     res.json({ success: true, tags });
   });
 
