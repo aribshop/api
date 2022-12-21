@@ -1,6 +1,7 @@
 import { IClientEntity, IUserEntity } from "../types/users";
 import { delay } from "../../../core/util";
 import { IStuffAggregation } from "../types/aggregations/stuff";
+import auth from "../../../repository/auth";
 
 export async function getStuff(userId: string): Promise<IStuffAggregation> {
   await delay(1000);
@@ -42,13 +43,13 @@ export async function getUser(userId: string): Promise<IUserEntity> {
 }
 
 export async function getUserByPhone(phone: string): Promise<IUserEntity> {
-  await delay(1000);
+  const user = await auth.getUserByPhoneNumber(phone);
 
   return {
-    uid: "123",
-    name: "user",
-    email: "pni20156789@gmail.com",
+    ...user,
     phone,
-    picture: "https://i.pravatar.cc/300",
+    picture: user.photoURL ?? "https://laknabil.me/nabil.png",
+    name: user.displayName ?? "Stuff",
+    email: user.email ?? "",
   };
 }
