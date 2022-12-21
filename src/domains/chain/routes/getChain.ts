@@ -9,10 +9,14 @@ import * as LineRepository from "../repositories/lines";
 const router = Router();
 
 export default async function () {
-  router.use(async (req, res) => {
-    const stuff = getAuthStuff(req);
-    const chain = await LineRepository.getChain(stuff.uid,stuff.site);
-    res.json({ success: true, chain });
+  router.use(async (req, res, n) => {
+    try {
+      const stuff = getAuthStuff(req);
+      const chain = await LineRepository.getChain(stuff.uid, stuff.site);
+      res.json({ success: true, chain });
+    } catch (e) {
+      n(e);
+    }
   });
 
   return router;

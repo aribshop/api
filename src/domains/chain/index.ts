@@ -16,6 +16,7 @@ import getConfirmations from "./routes/getConfirmations";
 import getChain from "./routes/getChain";
 import getUnconfirmed from "./routes/getUnconfirmed";
 import createLine from "./routes/createLine";
+import getGroupDetails from "./routes/getGroupDetails";
 
 const router = Router();
 
@@ -41,6 +42,7 @@ export default async function (props: Props) {
   // create new group and add it to line
   router.post("/group/create", VerifyToken, await createGroup());
   router.post("/group/add", VerifyToken, await addGroup());
+  router.use("/group/details", VerifyToken, await getGroupDetails());
   router.get("/groups", VerifyToken, await getGroups());
 
   //orders

@@ -1,10 +1,10 @@
 import { IStuffAggregation } from "@/domains/user/types/aggregations/stuff";
 import { ILineEntity } from "../chain";
-import { IGroup } from "../group";
+import {  IGroupEntity } from "../group";
 import { ITagEntity } from "../tag";
 
-export interface DetailedGroupAggregation {
-  group: IGroup;
+export interface IDetailedGroupAggregation {
+  group: IGroupEntity;
   lines: ILineEntity[];
   stuff: IStuffAggregation[];
   tags: ITagEntity[];

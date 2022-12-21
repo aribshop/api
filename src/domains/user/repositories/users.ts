@@ -43,10 +43,13 @@ export async function getUser(userId: string): Promise<IUserEntity> {
 }
 
 export async function getUserByPhone(phone: string): Promise<IUserEntity> {
-  const user = await auth.getUserByPhoneNumber(phone);
+  // const user = await auth.getUserByPhoneNumber(phone);
+  // todo make it by phone number
+  const user = await auth.getUserByEmail(phone);
 
   return {
-    ...user,
+    uid: user.uid,
+    ...user.customClaims,
     phone,
     picture: user.photoURL ?? "https://laknabil.me/nabil.png",
     name: user.displayName ?? "Stuff",

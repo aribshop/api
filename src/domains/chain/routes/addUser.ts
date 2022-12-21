@@ -1,3 +1,4 @@
+import auth from "@/repository/auth";
 import { Router } from "express";
 import { validate, ValidationError, Joi } from "express-validation";
 import * as OrganizeRepository from "../repositories/organize";
@@ -24,13 +25,24 @@ const validation = {
 router.use(validate(validation));
 
 export default async function () {
-  router.use(async (req, res) => {
-    const params = req.body as Params;
-    const { groupId, user } = params;
-    // todo add site to the user custom claims
-    await OrganizeRepository.addUserToGroup(user, groupId);
+  router.use(async (req, res, n) => {
+    try {
+      const params = req.body as Params;
+      const { groupId, user } = params;
+      // todo add site to the user custom claims
+      await OrganizeRepository.addUserToGroup(user, groupId);
+      const groups = await OrganizeRepository.getGroups(user);
+      const group = groups.find((group) => group.id === groupId);
+      if (!group) {
+        throw new Error("group not found");
+      }
 
-    res.json({ success: true });
+      await auth.setCustomUserClaims(user, { site: group.site });
+
+      res.json({ success: true });
+    } catch (e) {
+      n(e);
+    }
   });
 
   return router;
