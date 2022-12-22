@@ -25,7 +25,8 @@ export default async function () {
     const { groupId, line } = params;
     const model = await OrganizeRepository.addGroupToLine(line, groupId);
 
-    res.json({ success: true, line: model });
+    // FIXME i don't know how to return the model
+    res.json({ success: true});
   });
 
   return router;
