@@ -33,9 +33,9 @@
     "firebase-admin": "^11.3.0",
     "nodemon": "^2.0.20",
     "redis": "^4.5.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.1"
   },
   "devDependencies": {
-    "tsconfig-paths": "^4.1.1"
   }
 }
