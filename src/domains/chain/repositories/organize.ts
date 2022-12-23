@@ -3,7 +3,7 @@ import { delay } from "../../../core/util";
 import { ILineEntity } from "../types/chain";
 import { IGroupEntity, INewGroup } from "../types/group";
 import { ITagEntity, INewTag } from "../types/tag";
-import { GroupsCollection, TagsCollections } from "./db";
+import { GroupsCollection, LinesCollection, TagsCollections } from "./db";
 
 export async function addUserToGroup(user: string, groupId: string) {
   await GroupsCollection.doc(groupId).update({
@@ -53,19 +53,11 @@ export async function createTag(tag: INewTag): Promise<ITagEntity> {
 export async function addGroupToLine(
   lineId: string,
   groupId: string
-): Promise<ILineEntity> {
-  await delay(1000);
+):Promise<void> {
+  await LinesCollection.doc(lineId).update({
+    groups: firestore.FieldValue.arrayUnion(groupId),
+  });
 
-  return {
-    id: lineId,
-    name: "line 1",
-    isPublic: true,
-    expiresTime: 1500,
-    maxQueue: 10,
-    groups: [groupId],
-    confirmations: [],
-    site: "123",
-  };
 }
 
 export async function getTags(websiteId: string): Promise<ITagEntity[]> {

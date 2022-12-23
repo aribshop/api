@@ -24,7 +24,7 @@ export default async function () {
     if (!group) {
       return next(new GroupNotFound(groupId, stuff.uid));
     }
-    const all_tags = await OrganizeRepository.getTags(stuff.uid);
+    const all_tags = await OrganizeRepository.getTags(stuff.site);
     const group_tags = all_tags.filter((tag) => group.tags.includes(tag.id));
 
     const lines = await LinesRepository.getLines(group.site);
