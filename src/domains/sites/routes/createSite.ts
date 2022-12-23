@@ -3,6 +3,7 @@ import { validate, Joi } from "express-validation";
 import { ISiteEntity } from "../types/site";
 
 import * as SiteRepository from "../repositories/site";
+import * as Redis from "../repositories/redis";
 import { ITemplateEntity } from "../types/template";
 import auth from "../../../repository/auth";
 
@@ -49,7 +50,7 @@ export default async function () {
       userId
     );
 
-    console.log(userId);
+    await Redis.linkSubdomainToTemplate(site.subname, template.type);
     await auth.setCustomUserClaims(userId, {
       site: model.subname,
     });
