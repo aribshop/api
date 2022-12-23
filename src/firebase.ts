@@ -5,12 +5,16 @@ import { auth } from "firebase-admin";
 import { IStuffAggregation } from "./domains/user/types/aggregations/stuff";
 import { NotStuffError } from "./errors";
 
-const firebase = Admin.initializeApp({
-  // deflault
-  credential: ENV.FIREBASE
-    ? Admin.credential.cert(ENV.FIREBASE)
-    : Admin.credential.applicationDefault(),
-});
+// wtf is this!
+let firebase =
+  Admin.apps.length === 0
+    ? Admin.initializeApp({
+        // deflault
+        credential: ENV.FIREBASE
+          ? Admin.credential.cert(ENV.FIREBASE)
+          : Admin.credential.applicationDefault(),
+      })
+    : Admin.app();
 
 export default firebase;
 
@@ -22,7 +26,6 @@ export const VerifyToken = async (
 ) => {
   const AuthToken = req.headers.authorization?.split(" ")[1];
   const CookieToken = req.cookies.token;
-
 
   if (
     !CookieToken &&
