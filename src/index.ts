@@ -1,8 +1,10 @@
 import Express from "express";
-import { init } from "./app";
+import { init as InitApp } from "./app";
 import ENV from "./env";
 import CookieParser from "cookie-parser";
 import cors from "cors";
+
+import { InitRedis } from "./repository/redis";
 
 const app = Express();
 app.use(
@@ -14,13 +16,6 @@ app.use(
 
 app.use(Express.json());
 app.use(CookieParser());
-
-async function main() {
-  await init({
-    express: app,
-    auth: "dsdsd",
-  });
-}
 
 // load the app and serve it
 
@@ -37,6 +32,16 @@ app.use((req, res, next) => {
     next();
   });
 });
+
+async function main() {
+  await Promise.all([
+    InitRedis(),
+    InitApp({
+      express: app,
+      auth: "dsdsd",
+    }),
+  ]);
+}
 
 app.listen(ENV.PORT, () => {
   console.log("Listening on port " + ENV.PORT);
