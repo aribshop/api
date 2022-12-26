@@ -1,12 +1,23 @@
 import { EventEmitter } from "events";
 import { IStuffAggregation } from "@/domains/user/types/aggregations/stuff";
+import { ILineEntity } from "./domains/chain/types/chain";
+import { IClientEntity } from "./domains/user/types/users";
+import { IOrderEntity } from "./domains/chain/types/order";
 
 const bus = new EventEmitter();
-
 
 // you know, you can export Event types from each domain "setupEvents.ts" file and import them here! mind blowing <3
 type Events = {
   "users:getStuffsByIds": [string[], IStuffAggregation[]];
+  "chain:getSiteFirstLine": [string, ILineEntity];
+  "chain:pushOrder": [IOrderEntity, string];
+  "users:ensureClient": [
+    {
+      name: string;
+      phone: string;
+    }, // todo create a type for this
+    IClientEntity
+  ];
 };
 
 export function Emit<E extends keyof Events>(
@@ -15,7 +26,6 @@ export function Emit<E extends keyof Events>(
 ) {
   bus.emit(eventName, payload);
 }
-
 
 export function Fetch<E extends keyof Events>(
   eventName: E,

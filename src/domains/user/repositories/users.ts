@@ -21,12 +21,11 @@ export async function getClient(clientId: string): Promise<IClientEntity> {
   await delay(1000);
 
   return {
-    id: clientId,
+    uid: clientId,
     name: "client",
     email: "pni20156789@gmail.com",
     phone: "123456789",
-    created: new Date(),
-    location: "Algeria, Algiers",
+    // location: "location", // todo i think this should be added, and use custom claims to store it
   };
 }
 
@@ -42,17 +41,40 @@ export async function getUser(userId: string): Promise<IUserEntity> {
   };
 }
 
-export async function getUserByPhone(phone: string): Promise<IUserEntity> {
-  // const user = await auth.getUserByPhoneNumber(phone);
-  // todo make it by phone number
-  const user = await auth.getUserByEmail(phone);
+export async function createUser(params: {
+  name: string;
+  phone: string;
+}): Promise<IUserEntity> {
+  const user = await auth.createUser({
+    phoneNumber: params.phone,
+    displayName: params.name,
+  });
 
   return {
     uid: user.uid,
     ...user.customClaims,
-    phone,
+    phone: params.phone,
     picture: user.photoURL ?? "https://laknabil.me/nabil.png",
     name: user.displayName ?? "Stuff",
     email: user.email ?? "",
   };
+}
+
+export async function getUserByPhone(
+  phone: string
+): Promise<IUserEntity | undefined> {
+  try {
+    const user = await auth.getUserByPhoneNumber(phone);
+
+    return {
+      uid: user.uid,
+      ...user.customClaims,
+      phone,
+      picture: user.photoURL ?? "https://laknabil.me/nabil.png",
+      name: user.displayName ?? "Stuff",
+      email: user.email ?? "",
+    };
+  } catch (e) {
+    return undefined;
+  }
 }

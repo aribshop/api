@@ -1,11 +1,8 @@
 export interface IClientEntity {
-  id: string;
+  uid: string;
   name: string;
-  location: string;
   email: string;
   phone: string;
-
-  created: Date;
 }
 
 

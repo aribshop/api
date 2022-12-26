@@ -7,4 +7,13 @@ export default function setupEvents() {
 
     return Promise.all(users);
   });
+
+  onFetch("users:ensureClient", async (client) => {
+    const user = await UserRepository.getUserByPhone(client.phone);
+    if (!user) {
+      return await UserRepository.createUser(client);
+    }
+
+    return user;
+  });
 }

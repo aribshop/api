@@ -17,12 +17,15 @@ import getChain from "./routes/getChain";
 import getUnconfirmed from "./routes/getUnconfirmed";
 import createLine from "./routes/createLine";
 import getGroupDetails from "./routes/getGroupDetails";
+import setupEvents from "./setupEvents";
 
 const router = Router();
 
 interface Props {}
 
 export default async function (props: Props) {
+  setupEvents();
+  
   // chain
   router.get("/", VerifyToken, await getChain());
 
