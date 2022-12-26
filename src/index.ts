@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 async function main() {
   await Promise.all([
-    InitRedis(),
+    // InitRedis(),
     InitApp({
       express: app,
       auth: "dsdsd",
@@ -45,4 +45,8 @@ async function main() {
 
 app.listen(ENV.PORT, () => {
   console.log("Listening on port " + ENV.PORT);
+});
+
+app.get("/", (req, res) => {
+  res.redirect("https://arib.shop");
 });
