@@ -15,6 +15,12 @@ export const InitRedis = () => {
       console.timeEnd("Redis init");
     });
   });
+
+  client.on("error", (err) => {
+    if (err.code === "ECONNREFUSED") {
+      InitRedis();
+    }
+  });
 };
 
 export default client;

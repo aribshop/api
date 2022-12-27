@@ -1,8 +1,7 @@
 import auth from "@/repository/auth";
 import { Router } from "express";
-import { validate, ValidationError, Joi } from "express-validation";
+import { validate, Joi } from "express-validation";
 import * as OrganizeRepository from "../repositories/organize";
-import { IGroupEntity } from "../types/group";
 /**
  * add user to group
  */

@@ -1,6 +1,4 @@
 import { firestore } from "firebase-admin";
-import { delay } from "../../../core/util";
-import { ILineEntity } from "../types/chain";
 import { IGroupEntity, INewGroup } from "../types/group";
 import { ITagEntity, INewTag } from "../types/tag";
 import { GroupsCollection, LinesCollection, TagsCollections } from "./db";

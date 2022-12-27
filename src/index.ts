@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 async function main() {
   await Promise.all([
-    // InitRedis(),
+    InitRedis(),
     InitApp({
       express: app,
       auth: "dsdsd",

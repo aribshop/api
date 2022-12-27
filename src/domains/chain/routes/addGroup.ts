@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { validate, ValidationError, Joi } from "express-validation";
+import { validate, Joi } from "express-validation";
 import * as OrganizeRepository from "../repositories/organize";
-import { IGroupEntity } from "../types/group";
 
 const router = Router();
 
@@ -23,7 +22,7 @@ export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
     const { groupId, line } = params;
-    const model = await OrganizeRepository.addGroupToLine(line, groupId);
+    await OrganizeRepository.addGroupToLine(line, groupId);
 
     // FIXME i don't know how to return the model
     res.json({ success: true});
