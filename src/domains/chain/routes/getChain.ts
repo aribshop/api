@@ -12,7 +12,11 @@ export default async function () {
   router.use(async (req, res, n) => {
     try {
       const stuff = getAuthStuff(req);
-      const chain = await LineRepository.getChain(stuff.uid, stuff.site);
+      const chain = await LineRepository.getChain(
+        stuff.uid,
+        stuff.site,
+        stuff.isAdmin
+      );
       res.json({ success: true, chain });
     } catch (e) {
       n(e);

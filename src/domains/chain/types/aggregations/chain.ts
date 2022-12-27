@@ -1,9 +1,13 @@
 import { ILineEntity } from "../chain";
+import { IGroupEntity } from "../group";
+import { ITagEntity } from "../tag";
 
 export interface IChainAggregation {
   lines: ILineEntity[];
   site: string;
-  id: string;
-  name: string;
-  members: number; // todo rename it as OpenOrders and subscribe to it RTDB
+  name: string; // what is this?
+  groups: IGroupEntity[];
+  tags: ITagEntity[];
+  openOrders: number; // todo subscribe to it RTDB
+  members?: number;
 }

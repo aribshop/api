@@ -3,14 +3,43 @@ import { IChainAggregation } from "../types/aggregations/chain";
 import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
 import { LinesCollection } from "./db";
+import { getGroups, getTags } from "./organize"; // todo i don't know if this is an antipattren
 
-export async function getChain(userId: string,siteId:string): Promise<IChainAggregation> {
+export async function getChain(
+  userId: string,
+  siteId: string,
+  isAdmin: boolean
+): Promise<IChainAggregation> {
+  // todo this cost 3 queries, we can optimize it to 1 query
+  const allUserGroups = await getGroups(userId);
+  const groups = allUserGroups.filter((g) => g.site == siteId);
+
+  const usersCount = groups.reduce((acc, group) => {
+    group.users.forEach((user) => acc.add(user));
+    return acc;
+  }, new Set<string>()).size;
+
+  const allLines = await getLines(siteId);
+  const allTags = await getTags(siteId);
+
+  const userLines = allLines.filter((line) => {
+    return line.groups.some((groupId) => {
+      return groups.some((group) => group.id === groupId);
+    });
+  });
+
+  const userTags = allTags.filter((tag) => {
+    return groups.some((g) => g.tags.includes(tag.id));
+  });
+
   return {
-    id: "123",
-    name: "chain 1",
-    site: "123",
-    members: Math.floor(Math.random() * 100),
-    lines: await getLines(siteId),
+    name: "Production Chain",
+    site: siteId,
+    lines: isAdmin ? allLines : userLines,
+    groups,
+    openOrders: 0,
+    tags: isAdmin ? allTags : userTags,
+    members: usersCount,
   };
 }
 
