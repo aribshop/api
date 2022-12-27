@@ -11,14 +11,14 @@ import * as OrganizeRepository from "../repositories/organize";
 const router = Router();
 
 interface Params {
-    groupId: string;
+  groupId: string;
   tag: string;
 }
 
 const validation = {
-    body: Joi.object({
-        groupId: Joi.string().required(),
-        tag: Joi.string().required(),
+  body: Joi.object({
+    groupId: Joi.string().required(),
+    tag: Joi.string().required(),
   }),
 };
 
@@ -27,13 +27,20 @@ router.use(validate(validation));
 // todo add express error handler
 
 export default async function () {
-    router.use(async (req, res) => {
-        const params = req.body as Params;
-        const { groupId, tag } = params;
-        await OrganizeRepository.addTagToGroup(tag, groupId);
+  router.use(async (req, res) => {
+    const params = req.body as Params;
+    const { groupId, tag } = params;
+    
+    const user = getAuthStuff(req);
 
-        res.json({ success: true });
-    });
+    if (!user.isAdmin) {
+      throw Error("you don't have permission to create a group");
+    }
+    
+    await OrganizeRepository.addTagToGroup(tag, groupId);
 
-    return router;
+    res.json({ success: true });
+  });
+
+  return router;
 }

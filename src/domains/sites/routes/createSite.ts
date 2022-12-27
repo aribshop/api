@@ -40,7 +40,7 @@ export default async function () {
     const params = req.body as Params;
     const { site, template } = params;
     const userId = (req as any).auth.uid;
-
+    // todo block this request of the current user belongs to a site, V1 users can only have one site
     const model = await SiteRepository.createSite(
       site,
       {
@@ -53,6 +53,7 @@ export default async function () {
     await Redis.linkSubdomainToTemplate(site.subname, template.type);
     await auth.setCustomUserClaims(userId, {
       site: model.subname,
+      isAdmin: true,
     });
 
     res.json({ success: true, site: model, refresh: true });

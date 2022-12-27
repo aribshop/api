@@ -1,3 +1,4 @@
+import { getAuthStuff } from "@/firebase";
 import auth from "@/repository/auth";
 import { Router } from "express";
 import { validate, Joi } from "express-validation";
@@ -28,7 +29,12 @@ export default async function () {
     try {
       const params = req.body as Params;
       const { groupId, user } = params;
-      // todo add site to the user custom claims
+      const authUser = getAuthStuff(req);
+
+      if (!authUser.isAdmin) {
+        throw Error("you don't have permission to create a group");
+      }
+      
       await OrganizeRepository.addUserToGroup(user, groupId);
       const groups = await OrganizeRepository.getGroups(user);
       const group = groups.find((group) => group.id === groupId);

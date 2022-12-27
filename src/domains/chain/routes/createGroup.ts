@@ -1,3 +1,4 @@
+import { getAuthStuff } from "@/firebase";
 import { Router } from "express";
 import { validate, Joi } from "express-validation";
 import * as OrganizeRepository from "../repositories/organize";
@@ -25,9 +26,13 @@ export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
     const { group } = params;
-    const userId = (req as any).auth.uid;
+    const user = getAuthStuff(req);
 
-    const model = await OrganizeRepository.createGroup(group, userId);
+    if(!user.isAdmin){
+      throw Error("you don't have permission to create a group")
+    }
+
+    const model = await OrganizeRepository.createGroup(group, user.uid);
 
     res.json({ success: true, group: model });
   });
