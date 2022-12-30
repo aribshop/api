@@ -20,7 +20,8 @@ export default async function () {
         res.json({ success: true, stuff });
       } else {
         // todo refactor this!, specially the main IF!
-        const stuff = (req as any).auth;
+        // todo this doesn't make any sence, because firebase in the frontend has the same data
+        const stuff = (req as any).auth; // here the auth contains the Site, because the Token is revalidated in the frontend
         res.json({ success: true, stuff });
       }
     } catch (e) {

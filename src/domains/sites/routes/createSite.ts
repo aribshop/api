@@ -51,6 +51,7 @@ export default async function () {
     );
 
     await Redis.linkSubdomainToTemplate(site.subname, template.type);
+    await auth.updateUser(userId, { displayName: "Admin" });
     await auth.setCustomUserClaims(userId, {
       site: model.subname,
       isAdmin: true,

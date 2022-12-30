@@ -34,7 +34,7 @@ export default async function () {
       if (!authUser.isAdmin) {
         throw Error("you don't have permission to create a group");
       }
-      
+
       await OrganizeRepository.addUserToGroup(user, groupId);
       const groups = await OrganizeRepository.getGroups(user);
       const group = groups.find((group) => group.id === groupId);
@@ -42,6 +42,7 @@ export default async function () {
         throw new Error("group not found");
       }
 
+      await auth.updateUser(user, { displayName: "stuff" });
       await auth.setCustomUserClaims(user, { site: group.site });
 
       res.json({ success: true });

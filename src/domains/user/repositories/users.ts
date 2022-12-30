@@ -18,26 +18,26 @@ export async function getStuff(userId: string): Promise<IStuffAggregation> {
 }
 
 export async function getClient(clientId: string): Promise<IClientEntity> {
-  await delay(1000);
+  const client = await auth.getUser(clientId);
 
   return {
     uid: clientId,
-    name: "client",
-    email: "pni20156789@gmail.com",
-    phone: "123456789",
+    name: client.displayName ?? "Client",
+    email: client.email ?? "",
+    phone: client.phoneNumber ?? "",
     // location: "location", // todo i think this should be added, and use custom claims to store it
   };
 }
 
 export async function getUser(userId: string): Promise<IUserEntity> {
-  await delay(1000);
+  const client = await auth.getUser(userId);
 
   return {
     uid: userId,
-    name: "user",
-    email: "pni20156789@gmail.com",
-    phone: "123456789",
-    picture: "https://i.pravatar.cc/300",
+    name: client.displayName ?? "user",
+    email: client.email ?? "",
+    phone: client.phoneNumber ?? "",
+    picture: client.photoURL ?? "https://laknabil.me/nabil.png",
   };
 }
 
@@ -64,7 +64,7 @@ export async function getUserByPhone(
   phone: string
 ): Promise<IUserEntity | undefined> {
   try {
-    const user = await auth.getUserByPhoneNumber(phone);
+    const user = await auth.getUserByEmail(phone);
 
     return {
       uid: user.uid,
