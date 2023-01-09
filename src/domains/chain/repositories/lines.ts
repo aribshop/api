@@ -2,7 +2,12 @@ import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
 import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
-import { ConfirmationsCollection, LinesCollection } from "./db";
+import { IOrderEntity } from "../types/order";
+import {
+  ConfirmationsCollection,
+  LinesCollection,
+  OrdersCollection,
+} from "./db";
 import { getGroups, getTags } from "./organize"; // todo i don't know if this is an antipattren
 
 export async function getChain(
@@ -105,7 +110,6 @@ export async function getPublicLines(siteId: string): Promise<ILineEntity[]> {
 export async function getConfirmedConfirmations(
   orderID: string
 ): Promise<IConfirmationEntity[]> {
-
   const docs = await ConfirmationsCollection.where(
     "order",
     "==",
@@ -124,14 +128,40 @@ export async function getConfirmedConfirmations(
 
 // scoped to one line!
 export async function getUnconfirmedConfirmations(
-  orderId: string,
+  orderId: string
 ): Promise<IUnConfirmedAggregation> {
+  // todo this is very read heavy function!
+  const order = (
+    await OrdersCollection.doc(orderId).get()
+  ).data() as IOrderEntity;
+
+  const docs = await ConfirmationsCollection.where(
+    "order",
+    "==",
+    orderId
+  ).get();
+
+  const confirmations = docs.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      date: data.date.toDate(),
+    } as IConfirmationEntity;
+  });
+
+  const line = (
+    await LinesCollection.doc(order.line).get()
+  ).data() as ILineEntity;
+
   return {
-    confirmationTypes: ["verification"],
-    nextLine: "2",
-    orderId,
-    title: "Hello Title",
-    currentLine: "1",
+    confirmationTypes: line.confirmations.filter((e) =>
+      confirmations.every((c) => c.type !== e)
+    ),
+    currentLine: order.line,
+    nextLine: line.next,
+    orderId: orderId,
+    title: "random Product", // todo the order product name, it's a refetch, the frontend is already aware of the product name
   };
 }
 

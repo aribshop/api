@@ -3,10 +3,7 @@ import { SiteNotFound, TemplateNotFound } from "../errors";
 import { ITemplatedSiteAggregation } from "../types/aggregations/TemplatedSite";
 
 import { ISiteEntity } from "../types/site";
-import {
-  ITemplateEntity,
-  IUpdateTemplateEntity,
-} from "../types/template";
+import { ITemplateEntity, IUpdateTemplateEntity } from "../types/template";
 import { SiteCollection, TemplateCollection } from "./db";
 
 export async function getSite(
@@ -49,7 +46,6 @@ export async function createSite(
     user: userId,
     template: {
       ...template,
-      id: site.subname,
     },
   };
 }
@@ -68,6 +64,5 @@ export async function setTemplate(
 
   return {
     ...template,
-    id: siteId,
   } as ITemplateEntity;
 }

@@ -12,7 +12,6 @@ export interface IUser {
   email: string;
   phone: string;
   groups: IGroup[];
-  type: "user" | "admin" | "client"; // todo what is the difference between user and client?
 }
 
 export interface IClient {
@@ -44,13 +43,14 @@ export interface ITemplate {
 }
 
 /*
-    // todo templates problem
+    // templates problem
     templates are used to create sites
     we have for now two types of templates
     the probelm is how to store those templates in Relation DB
     and what about multiple sections in one template?
 
-    // FIXME for now, one table = one kind of template, multiple sections? well a section table for one kind of template. ship fast, remember? 
+    // for now, one table = one kind of template, multiple sections? well a section table for one kind of template. ship fast, remember? 
+    // we going to store the templates in a json Field!
 */
 
 export interface ILandingTemplate extends ITemplate {
@@ -84,7 +84,7 @@ export interface IProduct {
   isCustom: boolean;
 }
 
-// FIXME Metadata ?? what is this? LOL, probably its the shared data between all kind of products
+//the shared data between all kind of products
 export interface IProductMetadata {
   name: string;
   description: string;
@@ -125,6 +125,7 @@ export interface ICustomProductFormField {
     | "textarea";
   required: boolean;
   options: string[];
+  metadata?: any; // helps for styling and layouting types
 }
 
 // todo implement Product Priority

@@ -3,6 +3,7 @@ import { validate, Joi } from "express-validation";
 import { ICustomProductEntity, IStandardProductEntity } from "../types/product";
 
 import * as ProductRepository from "../repositories/product";
+import { getAuthStuff } from "@/firebase";
 
 const router = Router();
 
@@ -12,7 +13,6 @@ const router = Router();
 
 interface Params {
   product: ICustomProductEntity;
-  siteId: string;
 }
 
 const validation = {
@@ -44,8 +44,6 @@ const validation = {
           .required(),
       }).required(),
     }).required(),
-
-    siteId: Joi.string().required(), // FIXME this is not a good idea, the siteId should be in the url
   }).required(),
 };
 
@@ -54,8 +52,11 @@ router.use(validate(validation));
 export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
-    const { product, siteId } = params;
-    const model = await ProductRepository.createProduct(product, siteId);
+    const { product } = params;
+    const user = getAuthStuff(req);
+    // todo test if the product is valid, specially the custom product
+
+    const model = await ProductRepository.createProduct(product, user.site);
 
     res.json({ success: true, product: model });
   });

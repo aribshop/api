@@ -18,7 +18,6 @@ export interface ISite {
 // todo add agregated information about the first line ...
 export interface ISiteEntity {
   user: string;
-  template: ITemplateEntity; // FIXME for now the api for creating new website will force the template, but this goes against the idea of one API one Task. you know `preview`
   subname: string;
   description: string;
   name: string;

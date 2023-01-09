@@ -11,7 +11,7 @@ export interface IProductEntity {
   metadata: IProductMetadataEntity;
   isCustom: boolean;
   isPaused: boolean;
-  // todo, what about the siteId, for now, we are implementing subcollection as a solution
+  // what about the siteId, for now, we are implementing subcollection as a solution
 }
 
 export interface IProductMetadataEntity {
@@ -38,7 +38,6 @@ export interface ICustomProductFormEntity {
   version: number;
   lastUpdated: Date;
   fields: ICustomProductFormFieldEntity[];
-  //id: string; //TODO this is not needed, the id is the product id 
 }
 
 export interface ICustomProductFormFieldEntity {
@@ -54,4 +53,5 @@ export interface ICustomProductFormFieldEntity {
   required: boolean;
   options: string[];
   id: string;
+  metadata?: any; // helps for styling and layouting typesu
 }

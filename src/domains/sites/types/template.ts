@@ -7,7 +7,6 @@ export enum TemplateType {
 // this Entity is the core template, a website never have a direct ITemplateEntity
 // this act as a base Entity "Abstraction"
 export interface ITemplateEntity {
-  id: string;
   name: string;
   previewOG: string; 
   type: TemplateType;
@@ -20,7 +19,7 @@ export interface ILandingTemplateEntity extends ITemplateEntity {
   backgroundPicture: string;
   profilePicture: string;
   type: TemplateType.Landing;
-  sections: ISectionEntity[]; // FIXME big issue, when fetching the
+  sections: ISectionEntity[]; // big issue, when fetching  => hard coded!
 }
 
 export interface IStoreTemplateEntity extends ITemplateEntity {

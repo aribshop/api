@@ -19,7 +19,6 @@ export async function createGroup(
   group: INewGroup,
   userId: string
 ): Promise<IGroupEntity> {
-  // todo check if the userId is the owner of the site
 
   const doc = await GroupsCollection.add({
     site: group.site,

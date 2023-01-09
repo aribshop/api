@@ -6,7 +6,7 @@ import { ConfirmationType } from "../chain";
 export type IUnConfirmedAggregation= {
 	orderId: string;
 	confirmationTypes: ConfirmationType[];
-	nextLine: string;
+	nextLine?: string;
 	currentLine: string;
 	title:string,// todo the order product name, it's a refetch, the frontend is already aware of the product name
 };

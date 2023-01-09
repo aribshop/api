@@ -5,7 +5,7 @@ const router = Router();
 
 /**
 * get all products for a specific site
-* // todo : add pagination, and filter, and sort, and search
+* // V2 : add pagination, and filter, and sort, and search
 */
 
 

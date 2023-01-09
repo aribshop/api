@@ -9,7 +9,7 @@ const bus = new EventEmitter();
 // you know, you can export Event types from each domain "setupEvents.ts" file and import them here! mind blowing <3
 type Events = {
   "users:getStuffsByIds": [string[], IStuffAggregation[]];
-  "chain:getSiteFirstLine": [string, ILineEntity];
+  "chain:getSiteFirstLine": [string, ILineEntity | undefined];
   "chain:pushOrder": [IOrderEntity, string];
   "users:ensureClient": [
     {

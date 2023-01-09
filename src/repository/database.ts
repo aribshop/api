@@ -2,7 +2,8 @@ import Firebase from "../firebase";
 import { firestore } from "firebase-admin";
 const db = Firebase.firestore();
 
-export function toDate(date: Date) {
+
+export function toDBDate(date: Date) {
   return firestore.Timestamp.fromDate(date);
 }
 

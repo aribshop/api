@@ -2,6 +2,7 @@ import { IOrderEntity } from "@/domains/chain/types/order";
 import { Emit, Fetch } from "@/events";
 import { Router } from "express";
 import { validate, ValidationError, Joi } from "express-validation";
+import { FirstLineNotFound } from "../erros";
 import { IPurchase } from "../types/purchase";
 
 const router = Router();
@@ -14,7 +15,7 @@ interface Params extends IPurchase {}
 
 const validation = {
   body: Joi.object({
-    id: Joi.string().required(), // todo make it UIID
+    id: Joi.string().required(), // todo make it UIID, the problem we don't want the Public Website to use libraries!
     product: Joi.string().required(),
     quantity: Joi.number().required(),
     clientName: Joi.string().required(),
@@ -32,6 +33,8 @@ export default async function () {
     const params = req.body as Params;
 
     const line = await Fetch("chain:getSiteFirstLine", params.site);
+    if (!line) throw new FirstLineNotFound(params.site, params.product);
+
     const client = await Fetch("users:ensureClient", {
       name: params.clientName,
       phone: params.clientPhone,

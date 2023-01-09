@@ -62,6 +62,3 @@ export interface IConfirmationEntity {
   // we don't need isConfirmed (in case the type is Yes/now) because the lack of confirmation means it's not confirmed
 }
 
-
-
-// todo add Confirmation Note

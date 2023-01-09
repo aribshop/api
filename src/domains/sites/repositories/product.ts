@@ -39,7 +39,6 @@ export async function createProduct(
 ): Promise<IProductEntity> {
   const doc = await ProductCollection(siteId).doc(product.id).set(product);
 
-  // todo test if the product is valid, specially the custom product
   return {
     ...product,
   };

@@ -1,5 +1,7 @@
+import { getAuthStuff } from "@/firebase";
 import { Router } from "express";
 import { validate, Joi } from "express-validation";
+import { YouDontHavePermissionError } from "../errors";
 import * as OrganizeRepository from "../repositories/organize";
 
 const router = Router();
@@ -22,10 +24,15 @@ export default async function () {
   router.use(async (req, res) => {
     const params = req.body as Params;
     const { groupId, line } = params;
+
+    const user = getAuthStuff(req);
+
+    if (!user.isAdmin) throw new YouDontHavePermissionError(groupId, "group");
+
     await OrganizeRepository.addGroupToLine(line, groupId);
 
-    // FIXME i don't know how to return the model
-    res.json({ success: true});
+    //TIP when updating, RTDB will send a notification to the client!
+    res.json({ success: true });
   });
 
   return router;

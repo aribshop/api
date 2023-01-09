@@ -4,6 +4,7 @@ import { ISiteEntity } from "../types/site";
 
 import * as SiteRepository from "../repositories/site";
 import { ITemplateEntity, IUpdateTemplateEntity } from "../types/template";
+import { getAuthStuff } from "@/firebase";
 
 const router = Router();
 /**
@@ -23,7 +24,6 @@ const validation = {
       type: Joi.string().required(),
       description: Joi.string().required(),
       previewOG: Joi.string().required(),
-      id: Joi.string(), // FIXME what's the purpuse of ID!
       // todo add validation for the template data
     }).unknown(true),
   }),
@@ -33,16 +33,15 @@ const validation = {
 //router.use(validate(validation));
 
 export default async function () {
-  router.post("/set/:siteId", async (req, res, next) => {
+  router.post("/set", async (req, res, next) => {
     console.log("hello world!");
     const params = req.body as Params;
-    const { siteId } = req.params;
     const { template } = params;
 
-    const userId = (req as any).auth.uid;
+    const user = getAuthStuff(req);
 
     try {
-      const model = await SiteRepository.setTemplate(siteId, template);
+      const model = await SiteRepository.setTemplate(user.site, template);
 
       res.json({ success: true, template: model });
     } catch (error) {

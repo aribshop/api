@@ -8,7 +8,8 @@ const router = Router();
 
 /**
  * get product from its ID, it doesn't matter if its a standard product or a custom product
- * // todo what's the difference between this and getProductDetails?
+ * what's the difference between this and getProductDetails?
+ * well, productDetails is an aggregation!
  */
 
 
