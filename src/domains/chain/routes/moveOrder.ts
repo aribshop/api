@@ -22,7 +22,7 @@ interface Params {
 
 const validation = {
     body: Joi.object({
-        orderId: Joi.string().uuid().required(),
+        orderId: Joi.string().required(),
         confirmation: Joi.object({
             id: Joi.string().uuid().required(),
             date: Joi.date().required(),
@@ -48,9 +48,9 @@ export default async function () {
         // todo check if confirmation is valid for the order and line
 
         // todo attach the src to the confirmation if it is a file
-        const model = await OrderRepository.moveOrder(orderId, confirmation);
+         await OrderRepository.moveOrder(orderId, confirmation);
 
-        res.json({ success: true, line: model });
+        res.json({ success: true, confirmation});
     });
 
     return router;

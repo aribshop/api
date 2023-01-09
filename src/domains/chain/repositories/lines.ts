@@ -2,7 +2,7 @@ import { delay } from "../../../core/util";
 import { IChainAggregation } from "../types/aggregations/chain";
 import { IUnConfirmedAggregation } from "../types/aggregations/unconfirmed";
 import { IConfirmationEntity, ILineEntity, INewLine } from "../types/chain";
-import { LinesCollection } from "./db";
+import { ConfirmationsCollection, LinesCollection } from "./db";
 import { getGroups, getTags } from "./organize"; // todo i don't know if this is an antipattren
 
 export async function getChain(
@@ -105,31 +105,26 @@ export async function getPublicLines(siteId: string): Promise<ILineEntity[]> {
 export async function getConfirmedConfirmations(
   orderID: string
 ): Promise<IConfirmationEntity[]> {
-  await delay(1000);
 
-  return [
-    {
-      id: "1",
-      date: new Date(),
-      line: "1",
-      order: "1",
-      type: "verification",
-      user: "1",
-    },
-    {
-      id: "2",
-      date: new Date(),
-      line: "1",
-      order: "1",
-      type: "verification",
-      user: "1",
-    },
-  ];
+  const docs = await ConfirmationsCollection.where(
+    "order",
+    "==",
+    orderID
+  ).get();
+
+  return docs.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      date: data.date.toDate(),
+    } as IConfirmationEntity;
+  });
 }
 
 // scoped to one line!
 export async function getUnconfirmedConfirmations(
-  orderId: string
+  orderId: string,
 ): Promise<IUnConfirmedAggregation> {
   return {
     confirmationTypes: ["verification"],

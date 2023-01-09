@@ -1,28 +1,20 @@
+import { toDate } from "@/repository/database";
 import { IConfirmationEntity } from "../types/chain";
 import { IOrderEntity } from "../types/order";
-import { OrdersCollection } from "./db";
+import { ConfirmationsCollection, OrdersCollection } from "./db";
 
 export async function moveOrder(
   orderId: string,
   confirmation: IConfirmationEntity
-): Promise<IOrderEntity> {
+): Promise<void> {
   if (confirmation.order !== orderId) {
     throw new Error("order id does not match confirmation order id");
   }
-  // todo create new Confirmation
-  // todo why we need to return the order?
-  return {
-    client: "client A",
-    id: orderId,
-    line: "new line",
-    productValue: {
-      price: 100,
-    },
-    product: "sdsd",
-    site: "dsdsd",
-    date: new Date(),
-    lastUpdate: new Date(),
-  };
+
+  await ConfirmationsCollection.doc(confirmation.id).set({
+    ...confirmation,
+    date: toDate(confirmation.date),
+  });
 }
 
 export async function getOrders(
